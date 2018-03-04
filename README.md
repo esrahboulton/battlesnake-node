@@ -19,6 +19,7 @@ Based on the SWU nodejs starter snake
 
 ### Changed
 - updated all helpers w/ code from routes/index
+- added json helper 
 
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
