@@ -8,3 +8,12 @@ Based on the SWU nodejs starter snake
 - remove functions from /routes/index.js and use functions from helpers
 - fix killOrAvoid function
 - implement middle-out strategy
+
+## Changelog
+
+[0.0.1] - 2017-03-04
+### Added
+- battlesnake-2018 branch
+	- intact code from Battlesnake 2018
+- develop branch
+	- intended to be used for new work going forward, before being merged into master
