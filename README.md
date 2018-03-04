@@ -4,8 +4,7 @@ Based on the SWU nodejs starter snake
 
 ## TODO
 - update image, preferably w/ a gif
-- update helpers
-- remove functions from /routes/index.js and use functions from helpers
+- remove pickMove, findFood from /routes/index.js and use helpers
 - fix killOrAvoid function
 - implement middle-out strategy
 
@@ -17,3 +16,10 @@ Based on the SWU nodejs starter snake
 	- intact code from Battlesnake 2018
 - develop branch
 	- intended to be used for new work going forward, before being merged into master
+
+### Changed
+- updated all helpers w/ code from routes/index
+
+### Removed
+- removed all functions except pickMove, findFood from routes/index
+- cleaned empty lines, unnecessary comments
