@@ -83,8 +83,8 @@ router.post('/move', function (req, res) {
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
-  console.log(killMove)
- 
+  //console.log(killMove)
+  move = options[moveIndex]
   if (needsFood) {
     move = pathHelper.findPath(snakeHead, nearestFood)[0]
     for(i = 0; i < moveOptions.length; i++){
