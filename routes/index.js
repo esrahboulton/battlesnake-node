@@ -7,6 +7,7 @@ var pathHelper = require('../helpers/pathHelper')
 var selfHelper = require('../helpers/selfHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
+var killHelper = require('../helpers/killHelper')
 //var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 
