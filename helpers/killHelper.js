@@ -60,7 +60,7 @@ function kill(data, head, moveOptions){
       //They're to the right and up
       //moveOptions[1] = true
       //moveOptions[2] = true
-      iif(choice <= 0.5){
+      if(choice <= 0.5){
         return 'right'
       } else {
         return 'up'
@@ -87,5 +87,6 @@ function kill(data, head, moveOptions){
       }
     }
     return 'no kill'
+  }
 }
 exports.kill = kill;
