@@ -92,7 +92,7 @@ router.post('/move', function (req, res) {
     }
   } else {
     var index = Math.floor((Math.random() * 4))
-    if(!moveOptions[index]){
+    if(moveOptions[index]){
       move = moveOptions[index]
     } else {
       move = options[moveIndex]
