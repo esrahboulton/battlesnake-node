@@ -83,58 +83,31 @@ router.post('/move', function (req, res) {
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
-  console.log(killMove)
+  //console.log(killMove)
 
   if(snakes.length == 1){
     //One on one
     move = pathHelper.findPath(snakeHead, snakes.body.data[0])
-    for(i = 0; i < moveOptions.length; i++){
-      if(move === options[i] && !moveOptions[i]){
-        move = pathHelper.findPath(snakeHead, nearestFood)[1]
-        for(j = 0; j < moveOptions.length; j++){
-          if(move === options[j] && !moveOptions[j]){
-            move = options[moveIndex]
-            break
-          }
-        }
-        break
-      }
-    }
-  }
-
-
-  if (needsFood) {
+  } else if (needsFood) {
     move = pathHelper.findPath(snakeHead, nearestFood)[0]
-    for(i = 0; i < moveOptions.length; i++){
-      if(move === options[i] && !moveOptions[i]){
-        move = pathHelper.findPath(snakeHead, nearestFood)[1]
-        for(j = 0; j < moveOptions.length; j++){
-          if(move === options[j] && !moveOptions[j]){
-            move = options[moveIndex]
-            break
-          }
-        }
-        break
-      }
-    }
+  } else if (!(killMove === 'no kill')){
+    move = killMove
   } else {
-    move = options[moveIndex]
     var index = Math.floor((Math.random() * 4))
-    if(moveOptions[index]){
-      move = options[index]
-    } else {
-      move = options[moveIndex]
-    }
+    move = options[index]
   }
 
-  if(killMove === 'no kill'){
-    //move = killMove
-  }else {
-    for(i = 0; i < moveOptions.length; i++){
-      if(killMove === options[i] && moveOptions[i]){
-        move = killMove
-        break
+  //Check that the current move is valid
+  for(i = 0; i < moveOptions.length; i++){
+    if(move === options[i] && !moveOptions[i]){
+      move = pathHelper.findPath(snakeHead, nearestFood)[1]
+      for(j = 0; j < moveOptions.length; j++){
+        if(move === options[j] && !moveOptions[j]){
+          move = options[moveIndex]
+          break
+        }
       }
+      break
     }
   }
 
