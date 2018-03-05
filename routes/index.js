@@ -27,8 +27,8 @@ function pickMove(data, moveOptions) {
   }
 }
 
-function findFood(data) {
-  var foodLocation = data.food.data
+function findFood(data, req) {
+  var foodLocation = jsonHelper.getFood(req)
   var head = snakeHeadHelper.snakeHead(data.you)
   var dist = []
   if (foodLocation.length >= 1){
@@ -75,7 +75,7 @@ router.post('/move', function (req, res) {
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
-  var nearestFood = findFood(req.body)
+  var nearestFood = findFood(req.body, req)
   var needsFood = foodHelper.needFood(req.body)
   var move;
 
