@@ -87,7 +87,7 @@ router.post('/move', function (req, res) {
 
   if(snakes.length == 1){
     //One on one
-    /*var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
     move = path[0]
     for(i = 0; i < moveOptions.length; i++){
       if(move === options[i] && !moveOptions[i]){
@@ -98,7 +98,7 @@ router.post('/move', function (req, res) {
           }
         }
       }
-    }*/
+    }
   } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     move = path[0]
@@ -122,8 +122,8 @@ router.post('/move', function (req, res) {
   //Check that the current move is valid
   for(i = 0; i < moveOptions.length; i++){
     if(move === options[i] && !moveOptions[i]){
-      move = ptions[moveIndex]
-      break
+      move = options[moveIndex]
+
     }
   }
 
