@@ -86,7 +86,7 @@ function kill(data, head, moveOptions){
         return 'up'
       }
     }
-    return 'no kill'
   }
+  return 'no kill'
 }
 exports.kill = kill;
