@@ -8,6 +8,7 @@ var selfHelper = require('../helpers/selfHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 //var killHelper = require('../helpers/killHelper')
+var jsonHelper = require('../helpers/jsonHelper')
 
 function pickMove(data, moveOptions) {
   var head = snakeHeadHelper.snakeHead(data.you);
@@ -74,7 +75,6 @@ router.post('/move', function (req, res) {
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
-  // FAILS HERE
   var nearestFood = findFood(req.body)
   var needsFood = foodHelper.needFood(req.body)
   var move;
