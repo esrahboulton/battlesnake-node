@@ -10,6 +10,7 @@ var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 //var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
+var onevoneMeHelper = require('../helpers/onevoneMeHelper')
 
 function pickMove(data, moveOptions) {
   var head = snakeHeadHelper.snakeHead(data.you);
@@ -78,10 +79,29 @@ router.post('/move', function (req, res) {
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = findFood(req.body, req)
   var needsFood = foodHelper.needFood(req.body)
+  var snakes = jsonHelper.getSnakes(req.body)
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   console.log(killMove)
+
+  if(snakes.length == 1){
+    //One on one
+    move = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = pathHelper.findPath(snakeHead, nearestFood)[1]
+        for(j = 0; j < moveOptions.length; j++){
+          if(move === options[j] && !moveOptions[j]){
+            move = options[moveIndex]
+            break
+          }
+        }
+        break
+      }
+    }
+  }
+
 
   if (needsFood) {
     move = pathHelper.findPath(snakeHead, nearestFood)[0]
@@ -117,7 +137,6 @@ router.post('/move', function (req, res) {
       }
     }
   }
-  
 
   var data = {
     move: move, // one of: ['up','down','left','right']
