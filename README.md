@@ -18,6 +18,7 @@ Based on the SWU nodejs starter snake
 	- intended to be used for new work going forward, before being merged into master
 - added json helper 
 - added new helper to separate killOrAvoid into two functions for easier testing
+- added kill function 
 
 ### Changed
 - updated all helpers w/ code from routes/index
