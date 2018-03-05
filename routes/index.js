@@ -91,18 +91,20 @@ router.post('/move', function (req, res) {
         for(j = 0; j < moveOptions.length; j++){
           if(move === options[j] && !moveOptions[j]){
             move = options[moveIndex]
+            break
           }
         }
+        break
       }
     }
   } else {
     move = options[moveIndex]
-    /*var index = Math.floor((Math.random() * 4))
+    var index = Math.floor((Math.random() * 4))
     if(moveOptions[index]){
-      move = moveOptions[index]
+      move = options[index]
     } else {
       move = options[moveIndex]
-    }*/
+    }
   }
 
   if(killMove === 'no kill'){
