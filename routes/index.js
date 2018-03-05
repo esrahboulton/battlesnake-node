@@ -83,59 +83,72 @@ router.post('/move', function (req, res) {
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
-  //console.log(killMove)
-
-  if(snakes.length == 1){
-    //One on one
-    /*var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
-    move = path[0]
-    for(i = 0; i < moveOptions.length; i++){
-      if(move === options[i] && !moveOptions[i]){
-        move = path[1]
-        for(j = 0; j < moveOptions.length; j++){
-          if(move === options[j] && !moveOptions[j]){
-            move = options[moveIndex]
-          }
-        }
-      }
-    }*/
-  } else if (needsFood) {
-    var path = pathHelper.findPath(snakeHead, nearestFood)
-    move = path[0]
-    for(i = 0; i < moveOptions.length; i++){
-      if(move === options[i] && !moveOptions[i]){
-        move = path[1]
-        for(j = 0; j < moveOptions.length; j++){
-          if(move === options[j] && !moveOptions[j]){
-            move = options[moveIndex]
-          }
-        }
-      }
-    }
-  } else if (!(killMove === 'no kill')){
-    move = killMove
-  } else {
-    var index = Math.floor((Math.random() * 4))
-    move = options[index]
-  }
-
-  //Check that the current move is valid
-  for(i = 0; i < moveOptions.length; i++){
-    if(move === options[i] && !moveOptions[i]){
-      move = options[moveIndex]
-    }
-  }
-
-  var data = {
-    move: move, // one of: ['up','down','left','right']
-    taunt: taunts[Math.floor((Math.random() * 5))],
-    head: snakeHead,
-    nearestFood: nearestFood,
-    needsFood: needsFood,
-    path: pathHelper.findPath(snakeHead, nearestFood)
-  }
-
-  return res.json(data)
-})
-
-module.exports = router
+   console.log(killMove)
+ 
++  if(snakes.length == 1){
++    //One on one
++    move = pathHelper.findPath(snakeHead, snakes.body.data[0])
++    for(i = 0; i < moveOptions.length; i++){
++      if(move === options[i] && !moveOptions[i]){
++        move = pathHelper.findPath(snakeHead, nearestFood)[1]
++        for(j = 0; j < moveOptions.length; j++){
++          if(move === options[j] && !moveOptions[j]){
++            move = options[moveIndex]
++            break
++          }
++        }
++        break
++      }
++    }
++  }
++
++
+   if (needsFood) {
+     move = pathHelper.findPath(snakeHead, nearestFood)[0]
+     for(i = 0; i < moveOptions.length; i++){
+       if(move === options[i] && !moveOptions[i]){
+         move = pathHelper.findPath(snakeHead, nearestFood)[1]
+         for(j = 0; j < moveOptions.length; j++){
+           if(move === options[j] && !moveOptions[j]){
+             move = options[moveIndex]
+             break
+           }
+         }
+         break
+       }
+     }
+   } else {
+     move = options[moveIndex]
+     var index = Math.floor((Math.random() * 4))
+     if(moveOptions[index]){
+       move = options[index]
+     } else {
+       move = options[moveIndex]
+     }
+   }
+ 
+   if(killMove === 'no kill'){
+     //move = killMove
+   }else {
+     for(i = 0; i < moveOptions.length; i++){
+       if(killMove === options[i] && moveOptions[i]){
+         move = killMove
+         break
+       }
+     }
+   }
+-  
+ 
+   var data = {
+     move: move, // one of: ['up','down','left','right']
+     taunt: taunts[Math.floor((Math.random() * 5))],
+     head: snakeHead,
+     nearestFood: nearestFood,
+     needsFood: needsFood,
+     path: pathHelper.findPath(snakeHead, nearestFood)
+   }
+ 
+   return res.json(data)
+ })
+ 
+ module.exports = router
