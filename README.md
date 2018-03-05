@@ -16,10 +16,10 @@ Based on the SWU nodejs starter snake
 	- intact code from Battlesnake 2018
 - develop branch
 	- intended to be used for new work going forward, before being merged into master
+- added json helper 
 
 ### Changed
 - updated all helpers w/ code from routes/index
-- added json helper 
 
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
