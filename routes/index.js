@@ -87,7 +87,12 @@ router.post('/move', function (req, res) {
     move = pathHelper.findPath(snakeHead, nearestFood)[0]
     for(i = 0; i < moveOptions.length; i++){
       if(move === options[i] && !moveOptions[i]){
-        move = options[moveIndex]
+        move = pathHelper.findPath(snakeHead, nearestFood)[1]
+        for(j = 0; j < moveOptions.length; j++){
+          if(move === options[j] && !moveOptions[j]){
+            move = options[moveIndex]
+          }
+        }
       }
     }
   } else {
