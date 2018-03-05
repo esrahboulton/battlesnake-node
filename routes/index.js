@@ -110,7 +110,12 @@ router.post('/move', function (req, res) {
   if(killMove === 'no kill'){
     //move = killMove
   }else {
-    move = killMove
+    for(i = 0; i < moveOptions.length; i++){
+      if(killMove === options[i] && moveOptions[i]){
+        move = killMove
+        break
+      }
+    }
   }
   
 
