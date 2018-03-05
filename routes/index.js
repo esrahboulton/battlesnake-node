@@ -94,7 +94,7 @@ router.post('/move', function (req, res) {
   }
 
   if(killMove != 'no kill'){
-    move = killMove
+    //move = killMove
   }
 
   var data = {
