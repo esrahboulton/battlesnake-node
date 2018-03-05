@@ -102,7 +102,7 @@ router.post('/move', function (req, res) {
   if(killMove === 'no kill'){
     //move = killMove
   }else {
-    move = killMove
+    //move = killMove
   }
   
 
