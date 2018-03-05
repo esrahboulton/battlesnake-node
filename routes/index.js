@@ -87,9 +87,31 @@ router.post('/move', function (req, res) {
 
   if(snakes.length == 1){
     //One on one
-    move = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    move = path[0]
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = path[1]
+        for(j = 0; j < moveOptions.length; j++){
+          if(move === options[j] && !moveOptions[j]){
+            move = options[moveIndex]
+          }
+        }
+      }
+    }
   } else if (needsFood) {
-    move = pathHelper.findPath(snakeHead, nearestFood)[0]
+    var path = pathHelper.findPath(snakeHead, nearestFood)
+    move = path[0]
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = path[1]
+        for(j = 0; j < moveOptions.length; j++){
+          if(move === options[j] && !moveOptions[j]){
+            move = options[moveIndex]
+          }
+        }
+      }
+    }
   } else if (!(killMove === 'no kill')){
     move = killMove
   } else {
@@ -100,13 +122,7 @@ router.post('/move', function (req, res) {
   //Check that the current move is valid
   for(i = 0; i < moveOptions.length; i++){
     if(move === options[i] && !moveOptions[i]){
-      move = pathHelper.findPath(snakeHead, nearestFood)[1]
-      for(j = 0; j < moveOptions.length; j++){
-        if(move === options[j] && !moveOptions[j]){
-          move = options[moveIndex]
-          break
-        }
-      }
+      move = ptions[moveIndex]
       break
     }
   }
