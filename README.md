@@ -1,6 +1,6 @@
 # ouroboyos nodejs battlesnake
 
-Based on the SWU nodejs starter snake
+Based on the SWU nodejs starter snake 🐍
 
 ## TODO
 - update image, preferably w/ a gif
