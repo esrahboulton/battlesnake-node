@@ -95,9 +95,11 @@ router.post('/move', function (req, res) {
         move = pathHelper.findPath(snakeHead, nearestFood)[1]
       }
     }
-  }
-  if (!(killMove === 'no kill')) {
+  } else if (!(killMove === 'no kill')) {
     move = killMove
+  }else {
+    var index = Math.floor((Math.random() * 4))
+    move = options[index]
   }
 
   //Check if move is invalid
