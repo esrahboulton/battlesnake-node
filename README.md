@@ -27,3 +27,7 @@ Based on the SWU nodejs starter snake
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
 - cleaned empty lines, unnecessary comments
+
+### Running on Docker
+- Run docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server
+- Visit http://localhost:3000
