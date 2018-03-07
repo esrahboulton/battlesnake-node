@@ -91,6 +91,7 @@ router.post('/move', function (req, res) {
     // 1v1 time
     //We are king snek, actively kill the other snek
     var path = pathHelper.findPath(snakeHead, snakes[0].body.data[0])
+    console.log(path)
     var choice = Math.random()
     var pathOption = 0
     if(choice <= 0.5){
