@@ -11,8 +11,9 @@ https://nodejs-battlesnake-test.herokuapp.com/
 
 ## TODO
 - update image, preferably w/ a gif
-- remove pickMove, findFood from /routes/index.js and use helpers
-- fix killOrAvoid function
+- clean routes/index
+- write avoid function
+- review kill function
 - implement middle-out strategy
 
 ## Changelog
