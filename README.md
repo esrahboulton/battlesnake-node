@@ -15,6 +15,7 @@ https://ouroboyos.herokuapp.com/
 - review kill function
 - implement middle-out strategy
 - implement forward checking to avoid getting trapped 
+- implement better taunt switching 
 
 ## CHANGELOG
 ## [1.3.0] - 2018-03-07
