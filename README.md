@@ -2,7 +2,7 @@
 
 Based on the SWU nodejs starter snake 🐍
 
-##App
+## App
 https://nodejs-battlesnake-test.herokuapp.com/
 
 ## Running on Docker
