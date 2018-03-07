@@ -3,7 +3,7 @@
 Based on the SWU nodejs starter snake 🐍
 
 ## App
-https://nodejs-battlesnake-test.herokuapp.com/
+https://ouroboyos.herokuapp.com/
 
 ## Running on Docker
 - Run docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server
