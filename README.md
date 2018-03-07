@@ -14,6 +14,7 @@ https://ouroboyos.herokuapp.com/
 - clean routes/index
 - write avoid function
 - review kill function
+	- write check to make sure we know who we is
 - implement middle-out strategy
 
 ## CHANGELOG
