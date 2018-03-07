@@ -86,31 +86,28 @@ router.post('/move', function (req, res) {
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   //console.log(killMove)
 
-  if(snakes.length == 2){
+  if(snakes.length == 2 && snakes[0].body.data.length < jsonHelper.getBody(req)){
     console.log('Time to die')
     // 1v1 time
-    if(snakes[0].body.data.length < jsonHelper.getBody(req)){
-      //We are king snek, actively kill the other snek
-      var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
-      var choice = Math.random()
-      var pathOption = 0
-      if(choice <= 0.5){
-        pathOption = 1
-      }
-      if (path.length > 1) {
-        move = path[pathOption]
-        for(i = 0; i < moveOptions.length; i++){
-          if(move === options[i] && !moveOptions[i]){
-            move = path[1 - pathOption]
-          }
+    //We are king snek, actively kill the other snek
+    var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    var choice = Math.random()
+    var pathOption = 0
+    if(choice <= 0.5){
+      pathOption = 1
+    }
+    if (path.length > 1) {
+      move = path[pathOption]
+      for(i = 0; i < moveOptions.length; i++){
+        if(move === options[i] && !moveOptions[i]){
+          move = path[1 - pathOption]
         }
-      } else {
-        move = path[0]
       }
+    } else {
+      move = path[0]
     }
     console.log(move)
-  } 
-  if (needsFood) {
+  } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     var choice = Math.random()
     var pathOption = 0
