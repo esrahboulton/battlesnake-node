@@ -80,6 +80,8 @@ router.post('/move', function (req, res) {
       myIndex = i
     }
   }
+  console.log(myIndex)
+  console.log(myID)
   
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
