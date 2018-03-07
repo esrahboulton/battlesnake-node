@@ -72,25 +72,31 @@ router.post('/start', function (req, res) {
 
 // Handle POST request to '/move'
 router.post('/move', function (req, res) {
-
-
+  var myID = req.body.you.id
+  var myIndex;
+  var snakes = jsonHelper.getSnakes(req)
+  for(i = 0; i < snakes.length; i++){
+    if(snakes[i].id == myID){
+      myIndex = i
+    }
+  }
+  
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = findFood(req.body, req)
   var needsFood = foodHelper.needFood(req.body)
-  var snakes = jsonHelper.getSnakes(req)
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   //console.log(killMove)
 
-  if(snakes.length == 2 && snakes[0].body.data.length < jsonHelper.getBody(req)){
+  if(snakes.length == 2 && snakes[1-myIndex].body.data.length < jsonHelper.getBody(req)){
     console.log('Time to die')
     // 1v1 time
     //We are king snek, actively kill the other snek
-    var path = pathHelper.findPath(snakeHead, snakes[0].body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes[1-myIndex].body.data[0])
     console.log(path)
     var choice = Math.random()
     var pathOption = 0
