@@ -18,8 +18,8 @@ function pickMove(data, moveOptions) {
   var wallWidth = data.width;
 
   senksHelper.avoidSenks(data, head, moveOptions)
-  // killHelper.killOrAvoid(data, head, moveOptions)
-  selfHelper.avoidSelf(data, head, moveOptions)
+  //killHelper.killOrAvoid(data, head, moveOptions)
+  //selfHelper.avoidSelf(data, head, moveOptions)
   wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
@@ -86,10 +86,10 @@ router.post('/move', function (req, res) {
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   //console.log(killMove)
 
-  if(snakes.length == 1){
+  if(snakes.length == 2){
     console.log('Time to die')
     // 1v1 time
-    if(snakes.body.data.length < req.body.you.body.data.length){
+    if(snakes[0].length < jsonHelper.getBody(req)){
       //We are king snek, actively kill the other snek
       var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
       var choice = Math.random()
