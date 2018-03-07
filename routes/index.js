@@ -59,7 +59,7 @@ var taunts = [
 router.post('/start', function (req, res) {
 
   var data = {
-    color: "#FFD957",
+    color: "",
     secondary_color: "#D15BFE",
     head_url: "http://placecage.com/c/100/100",
     taunt: "OH GOD NOT THE BEES",
