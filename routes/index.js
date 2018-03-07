@@ -87,10 +87,15 @@ router.post('/move', function (req, res) {
   //console.log(killMove)
 
   if (needsFood) {
-    move = pathHelper.findPath(snakeHead, nearestFood)[0]
+    var choice = Math.random()
+    var pathOption = 0
+    if(choice <= 0.5){
+      pathOption = 1
+    }
+    move = pathHelper.findPath(snakeHead, nearestFood)[pathOption]
     for(i = 0; i < moveOptions.length; i++){
       if(move === options[i] && !moveOptions[i]){
-        move = pathHelper.findPath(snakeHead, nearestFood)[1]
+        move = pathHelper.findPath(snakeHead, nearestFood)[1 - pathOption]
       }
     }
   } else if (!(killMove === 'no kill')) {
