@@ -61,7 +61,7 @@ router.post('/start', function (req, res) {
   var data = {
     color: "#FFD957",
     secondary_color: "#D15BFE",
-    head_url: "https://media.giphy.com/media/yaGzS6Zg9yDYs/giphy.gif",
+    head_url: "https://m.popkey.co/3771fc/Aojzp.gif",
     taunt: "OH GOD NOT THE BEES",
     head_type: "tongue",
     tail_type: "skinny"
