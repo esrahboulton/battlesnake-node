@@ -9,6 +9,11 @@ function getFood(req){
 function getYou(req){
 	return req.body.you.data
 }
+
+function getBody(req) {
+	return req.body.you.body.data.length
+}
 exports.getSnakes = getSnakes;
 exports.getFood = getFood;
 exports.getYou = getYou;
+exports.getBody = getBody;

@@ -16,9 +16,13 @@ https://nodejs-battlesnake-test.herokuapp.com/
 - review kill function
 - implement middle-out strategy
 
-## Changelog
+## CHANGELOG
 
-[0.0.1] - 2017-03-04
+## [1.2.0] - 2018-03-06
+### Changed
+- updated kill function
+
+## [1.1.0] - 2018-03-04
 ### Added
 - battlesnake-2018 branch
 	- intact code from Battlesnake 2018
