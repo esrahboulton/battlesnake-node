@@ -19,6 +19,9 @@ https://nodejs-battlesnake-test.herokuapp.com/
 ## CHANGELOG
 
 ## [1.2.0] - 2018-03-06
+### Added
+- getBody function to jsonHelper
+
 ### Changed
 - updated kill function
 
