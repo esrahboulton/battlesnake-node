@@ -59,9 +59,9 @@ var taunts = [
 router.post('/start', function (req, res) {
 
   var data = {
-    color: "",
+    color: "#FFD957",
     secondary_color: "#D15BFE",
-    head_url: "http://placecage.com/c/100/100",
+    head_url: "https://media.giphy.com/media/yaGzS6Zg9yDYs/giphy.gif",
     taunt: "OH GOD NOT THE BEES",
     head_type: "tongue",
     tail_type: "skinny"
