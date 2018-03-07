@@ -2,6 +2,13 @@
 
 Based on the SWU nodejs starter snake 🐍
 
+##App
+https://nodejs-battlesnake-test.herokuapp.com/
+
+## Running on Docker
+- Run docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server
+- Visit http://localhost:3000
+
 ## TODO
 - update image, preferably w/ a gif
 - remove pickMove, findFood from /routes/index.js and use helpers
@@ -27,7 +34,3 @@ Based on the SWU nodejs starter snake 🐍
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
 - cleaned empty lines, unnecessary comments
-
-### Running on Docker
-- Run docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server
-- Visit http://localhost:3000
