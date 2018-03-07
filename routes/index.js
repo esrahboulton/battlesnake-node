@@ -93,11 +93,12 @@ router.post('/move', function (req, res) {
     if(choice <= 0.5){
       pathOption = 1
     }
-    if(path.length > 1){
+    if (path.length > 1) {
       move = path[pathOption]
       for(i = 0; i < moveOptions.length; i++){
-      if(move === options[i] && !moveOptions[i]){
-        move = path[1 - pathOption]
+        if(move === options[i] && !moveOptions[i]){
+          move = path[1 - pathOption]
+        }
       }
     } else {
       move = path[0]
