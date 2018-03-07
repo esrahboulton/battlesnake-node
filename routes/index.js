@@ -109,7 +109,8 @@ router.post('/move', function (req, res) {
       }
     }
     console.log(move)
-  } else if (needsFood) {
+  } 
+  if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     var choice = Math.random()
     var pathOption = 0
