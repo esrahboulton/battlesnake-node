@@ -84,7 +84,7 @@ router.post('/move', function (req, res) {
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
-  console.log(killMove)
+  //console.log(killMove)
 
   if (needsFood) {
     move = pathHelper.findPath(snakeHead, nearestFood)[0]
@@ -106,6 +106,9 @@ router.post('/move', function (req, res) {
       move = options[moveIndex]
     }
   }
+
+  console.log(move)
+  console.log(moveOptions)
   
   var data = {
     move: move, // one of: ['up','down','left','right']
