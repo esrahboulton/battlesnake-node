@@ -10,7 +10,6 @@ https://ouroboyos.herokuapp.com/
 - Visit http://localhost:3000
 
 ## TODO
-- update image, preferably w/ a gif
 - clean routes/index
 - write avoid function
 - review kill function
@@ -20,6 +19,7 @@ https://ouroboyos.herokuapp.com/
 ## CHANGELOG
 ## [1.3.0] - 2018-03-07
 - added 1v1 test to search out the other snakes head
+- updated image w/ a gif
 
 ## [1.2.0] - 2018-03-06
 ### Added
