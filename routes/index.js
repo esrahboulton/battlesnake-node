@@ -90,7 +90,7 @@ router.post('/move', function (req, res) {
     console.log('Time to die')
     // 1v1 time
     //We are king snek, actively kill the other snek
-    var path = pathHelper.findPath(snakeHead, snakes.body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes[0].body.data[0])
     var choice = Math.random()
     var pathOption = 0
     if(choice <= 0.5){
