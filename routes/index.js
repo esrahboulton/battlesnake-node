@@ -73,28 +73,24 @@ router.post('/start', function (req, res) {
 // Handle POST request to '/move'
 router.post('/move', function (req, res) {
 
+
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = findFood(req.body, req)
   var needsFood = foodHelper.needFood(req.body)
-  var snakes = jsonHelper.getSnakes(req.body)
+  //var snakes = jsonHelper.getSnakes(req.body)
   var move;
 
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   console.log(killMove)
 
   if (needsFood) {
-    var choice = Math.random()
-    var pathChoice = 0
-    if(choice <= 0.5){
-      pathChoice = 1
-    }
-    move = pathHelper.findPath(snakeHead, nearestFood)[pathChoice]
+    move = pathHelper.findPath(snakeHead, nearestFood)[0]
     for(i = 0; i < moveOptions.length; i++){
       if(move === options[i] && !moveOptions[i]){
-        move = pathHelper.findPath(snakeHead, nearestFood)[1 - pathChoice]
+        move = pathHelper.findPath(snakeHead, nearestFood)[1]
       }
     }
   } else if (!(killMove === 'no kill')) {
@@ -110,7 +106,7 @@ router.post('/move', function (req, res) {
       move = options[moveIndex]
     }
   }
-
+  
   var data = {
     move: move, // one of: ['up','down','left','right']
     taunt: taunts[Math.floor((Math.random() * 5))],
