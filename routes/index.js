@@ -87,6 +87,7 @@ router.post('/move', function (req, res) {
   //console.log(killMove)
 
   if(snakes.length == 1){
+    console.log('Time to die')
     // 1v1 time
     if(snakes.body.data.length < req.body.you.body.data.length){
       //We are king snek, actively kill the other snek
@@ -107,6 +108,7 @@ router.post('/move', function (req, res) {
         move = path[0]
       }
     }
+    console.log(move)
   } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     var choice = Math.random()
