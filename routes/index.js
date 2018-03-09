@@ -149,10 +149,14 @@ router.post('/move', function (req, res) {
 
   //console.log(move)
   //console.log(moveOptions)
+  var turn = req.body.turn
+  var taunt = Math.floor((turn/10))%5
+  console.log(taunt)
   
   var data = {
     move: move, // one of: ['up','down','left','right']
-    taunt: taunts[Math.floor((Math.random() * 5))],
+    // taunt: taunts[Math.floor((Math.random() * 5))],
+    taunt: taunts[taunt],
     head: snakeHead,
     nearestFood: nearestFood,
     needsFood: needsFood,
