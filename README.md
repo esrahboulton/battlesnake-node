@@ -21,6 +21,9 @@ https://ouroboyos.herokuapp.com/
 ### Changed
 - implemented improved taunt switching 
 
+### Added
+- follow tail option 
+
 ## [1.3.0] - 2018-03-07
 - added 1v1 test to search out the other snakes head
 - updated image w/ a gif
