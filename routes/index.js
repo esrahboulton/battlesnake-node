@@ -80,8 +80,6 @@ router.post('/move', function (req, res) {
       myIndex = i
     }
   }
-  console.log(myIndex)
-  console.log(myID)
   
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
@@ -95,11 +93,9 @@ router.post('/move', function (req, res) {
   //console.log(killMove)
 
   if(snakes.length == 2 && snakes[1-myIndex].body.data.length < jsonHelper.getBody(req)){
-    console.log('Time to die')
     // 1v1 time
     //We are king snek, actively kill the other snek
     var path = pathHelper.findPath(snakeHead, snakes[1-myIndex].body.data[0])
-    console.log(path)
     var choice = Math.random()
     var pathOption = 0
     if(choice <= 0.5){
@@ -115,7 +111,6 @@ router.post('/move', function (req, res) {
     } else {
       move = path[0]
     }
-    console.log(move)
   } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     var choice = Math.random()
@@ -151,11 +146,9 @@ router.post('/move', function (req, res) {
   //console.log(moveOptions)
   var turn = req.body.turn
   var taunt = Math.floor((turn/10))%5
-  console.log(taunt)
   
   var data = {
     move: move, // one of: ['up','down','left','right']
-    // taunt: taunts[Math.floor((Math.random() * 5))],
     taunt: taunts[taunt],
     head: snakeHead,
     nearestFood: nearestFood,
