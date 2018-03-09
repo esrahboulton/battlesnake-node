@@ -15,9 +15,12 @@ https://ouroboyos.herokuapp.com/
 - review kill function
 - implement middle-out strategy
 - implement forward checking to avoid getting trapped 
-- implement better taunt switching 
 
 ## CHANGELOG
+## [1.4.0] - 2018-03-08
+### Changed
+- implemented improved taunt switching 
+
 ## [1.3.0] - 2018-03-07
 - added 1v1 test to search out the other snakes head
 - updated image w/ a gif
