@@ -131,26 +131,28 @@ router.post('/move', function (req, res) {
   } else if (!(killMove === 'no kill')) {
     move = killMove
   }else {
-    // var index = Math.floor((Math.random() * 4))
-    // move = options[index]
-    var myLength = req.body.you.body.data.length
-    var tail = req.body.you.body.data[myLength-1]
-    var path = pathHelper.findPath(snakeHead, tail)
-    var choice = Math.random()
-    var pathOption = 0
-    if(choice <= 0.5){
-      pathOption = 1
-    }
-    if (path.length > 1) {
-      move = path[pathOption]
-      for(i = 0; i < moveOptions.length; i++){
-        if(move === options[i] && !moveOptions[i]){
-          move = path[1 - pathOption]
-        }
-      }
-    } else {
-      move = path[0]
-    }
+    var index = Math.floor((Math.random() * 4))
+    move = options[index]
+
+    //Uncomment to follow tail
+    // var myLength = req.body.you.body.data.length
+    // var tail = req.body.you.body.data[myLength-1]
+    // var path = pathHelper.findPath(snakeHead, tail)
+    // var choice = Math.random()
+    // var pathOption = 0
+    // if(choice <= 0.5){
+    //   pathOption = 1
+    // }
+    // if (path.length > 1) {
+    //   move = path[pathOption]
+    //   for(i = 0; i < moveOptions.length; i++){
+    //     if(move === options[i] && !moveOptions[i]){
+    //       move = path[1 - pathOption]
+    //     }
+    //   }
+    // } else {
+    //   move = path[0]
+    // }
 
   }
 
