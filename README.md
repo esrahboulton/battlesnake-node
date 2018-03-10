@@ -6,7 +6,7 @@ Based on the SWU nodejs starter snake 🐍
 https://ouroboyos.herokuapp.com/
 
 ## Running on Docker
-- Run docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server
+- Run `docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server`
 - Visit http://localhost:3000
 
 ## TODO
@@ -17,15 +17,16 @@ https://ouroboyos.herokuapp.com/
 
 ## CHANGELOG
 ## [1.5.0] - 2018-03-09
+### Added
+- getID and getIndex in jsonHelper
+- pick function in pathHelper to select a random move in the path
+
 ### Changed
 - moved find food into foodHelper
 - moved pick move into moveHelper
 - cleaned up routes/index
 - added avoid function
-
-### Added
-- getID and getIndex in jsonHelper
-- pick function in pathHelper to select a random move in the path
+- cleaned follow tail function
 
 ### Removed
 - removed onevoneMeHelper.js
@@ -39,7 +40,10 @@ https://ouroboyos.herokuapp.com/
 - follow tail option 
 
 ## [1.3.0] - 2018-03-07
+### Added
 - added 1v1 test to search out the other snakes head
+
+### Changed
 - updated image w/ a gif
 
 ## [1.2.0] - 2018-03-06
