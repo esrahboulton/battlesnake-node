@@ -13,7 +13,9 @@ https://ouroboyos.herokuapp.com/
 - review avoid function
 - review kill function
 - implement middle-out strategy
-- implement forward checking to avoid getting trapped 
+- implement forward checking to avoid getting trapped
+- branch into clean release branch, merge into master
+	- setup new branch w/ randomized movement snake, create new heroku app
 
 ## CHANGELOG
 ## [1.5.0] - 2018-03-09
