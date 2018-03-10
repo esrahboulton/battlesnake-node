@@ -102,12 +102,21 @@ router.post('/move', function (req, res) {
     }
   }
 
+  function tauntSwitcher(req) {
+    if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)) {
+      var enemyName = snakes.name
+      var tauntBoi = 'rip, '+enemyName
+    } else {
+      var tauntBoi = taunts[taunt];
+    }
+  }
+
   console.log(avoid)
 
   var data = {
     move: move, // one of: ['up','down','left','right']
     avoid: avoid,
-    taunt: taunts[taunt],
+    taunt: tauntSwitcher,
     head: snakeHead,
     nearestFood: nearestFood,
     needsFood: needsFood,
