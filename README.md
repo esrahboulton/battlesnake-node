@@ -14,8 +14,8 @@ https://ouroboyos.herokuapp.com/
 2. review avoid function
 3. review kill function
 4. branch into clean release branch, merge into master
-5. implement middle-out strategy
 	* setup new branch w/ randomized movement snake, create new heroku app
+5. implement middle-out strategy
 
 ## CHANGELOG
 ## [1.6.0] - 2018-03-10
