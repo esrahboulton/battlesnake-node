@@ -17,6 +17,10 @@ https://ouroboyos.herokuapp.com/
 - implement forward checking to avoid getting trapped 
 
 ## CHANGELOG
+## [1.5.0] - 2018-03-09
+### Removed
+- removed onevoneMeHelper.js
+
 ## [1.4.0] - 2018-03-08
 ### Changed
 - implemented improved taunt switching 
