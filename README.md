@@ -3,8 +3,7 @@
 Based on the SWU nodejs starter snake 🐍
 
 ## Branches
-`feature/[feature-name]` branches are used for features (new functions, etc)
-`test/[feature-name]` branches are used for a stable dev build of a feature. We then create a new heroku app so we can run older snakes against newer.
+`feature/[feature-name]` branches are used for features (new functions, etc). `test/[feature-name]` branches are used for a stable dev build of a feature. We then create a new heroku app so we can run older snakes against newer.
 
 ## App
 ### Main build
