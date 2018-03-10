@@ -72,7 +72,12 @@ router.post('/move', function(req, res) {
     var myLength = jsonHelper.getBody(req)
     var tail = req.body.you.body.data[myLength - 1]
     var path = pathHelper.findPath(snakeHead, tail)
-    move = pathHelper.pick(path, moveOptions, options)
+    if(path.length == 0 ){
+      var index = Math.floor((Math.random() * 4))
+      move = options[index]
+    } else {
+      move = pathHelper.pick(path, moveOptions, options)
+    }
   }
 
   //Check if move is invalid
