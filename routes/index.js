@@ -4,7 +4,7 @@ var router  = express.Router()
 var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
 var pathHelper = require('../helpers/pathHelper')
-var senksHelper = require('../helpers/senksHelper')
+//var sneksHelper = require('../helpers/sneksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
@@ -29,7 +29,6 @@ router.post('/start', function (req, res) {
     head_type: "tongue",
     tail_type: "skinny"
   }
-
   return res.json(data)
 })
 
@@ -77,6 +76,8 @@ router.post('/move', function (req, res) {
       move = options[moveIndex]
     }
   }
+
+  /// TODO: add avoid, need to not do our current move if another move exists
 
   var data = {
     move: move, // one of: ['up','down','left','right']

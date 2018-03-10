@@ -1,4 +1,4 @@
-function avoidSenks(data, head, moveOptions) {
+function avoidSneks(data, head, moveOptions) {
   var snakes = data.snakes.data
   for(i = 0; i < snakes.length; i++){
     var snek = snakes[i].body.data;
@@ -22,4 +22,4 @@ function avoidSenks(data, head, moveOptions) {
     }
   }
 }
-exports.avoidSenks = avoidSenks;
+exports.avoidSneks = avoidSneks;
