@@ -18,6 +18,9 @@ https://ouroboyos.herokuapp.com/
 
 ## CHANGELOG
 ## [1.5.0] - 2018-03-09
+### Changed
+- moved find food into foodHelper
+
 ### Removed
 - removed onevoneMeHelper.js
 

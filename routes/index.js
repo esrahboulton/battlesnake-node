@@ -28,57 +28,6 @@ function pickMove(data, moveOptions) {
   }
 }
 
-function findFood(data, req) {
-  var foodLocation = jsonHelper.getFood(req)
-  var head = snakeHeadHelper.snakeHead(data.you)
-  var dist = []
-  if (foodLocation.length >= 1){
-    // go through all food on board
-    for (var i = 0; i < foodLocation.length; i++){
-      var x = Math.abs(head.x - foodLocation[i].x)
-      var y = Math.abs(head.y - foodLocation[i].y)
-      dist[i] = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
-    }
-    // index of minimum distance food
-    var min = dist.indexOf(Math.min(...dist))
-    return foodLocation[min]
-  }
-  return foodLocation[0]
-}
-
-function lookAhead(depth, move, body){
-  console.log('here')
-  if(depth == 0){
-    return true;
-  }
-  var trapped = false;
-  var head = body[0];
-  var newHead;
-  //['left', 'right', 'up', 'down']
-  if(move === 'left'){
-    newHead = head.x -1;
-  }else if(move === 'right'){
-    newHead = head.x +1;
-  }else if(move === 'up'){
-    newHead = head.y -1;
-  }else if(move === 'down'){
-    newHead = head.y +1;
-  }
-
-  body = body.slice(body.length -1);
-  //Add a segment to the head of the snake and then check for vaild moves
-  body.unshift()
-
-
-  return lookAhead(depth -1, move, body);
-
-  // if(trapped){
-  //   return trapped;
-  // }else {
-  //   return lookAhead(depth -1, move, body);
-  // }
-}
-
 var taunts = [
   'You\'re hisssstory!',
   'nothing personnel kid',
@@ -117,7 +66,7 @@ router.post('/move', function (req, res) {
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
-  var nearestFood = findFood(req.body, req)
+  var nearestFood = foodHelper.findFood(req.body, req)
   var needsFood = foodHelper.needFood(req.body)
   var move;
 
@@ -195,8 +144,6 @@ router.post('/move', function (req, res) {
       move = options[moveIndex]
     }
   }
-
-  lookAhead(0, 'left', req.body.you.body.data)
 
   //console.log(move)
   //console.log(moveOptions)
