@@ -9,6 +9,7 @@ var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
+var avoidHelper = require('../helpers/avoidHelper')
 
 var taunts = [
   'You\'re hisssstory!',
@@ -47,7 +48,7 @@ router.post('/move', function (req, res) {
   var needsFood = foodHelper.needFood(req.body)
   var move;
 
-  var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
+  var killMove = killHelper.kill(req.body, snakeHead)
 
   if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)){
     // 1v1 time. We are king snek, actively kill the other snek
@@ -78,9 +79,34 @@ router.post('/move', function (req, res) {
   }
 
   /// TODO: add avoid, need to not do our current move if another move exists
+  var avoid = avoidHelper.avoid(req.body, snakeHead)
+  if(!(avoid[0] === 'all good')){
+    //Avoid something
+    if(avoid.length == 1){
+      if(move == options[avoid[0]]){
+        for(i = 0; i < options.length; i++){
+          if(i != avoid[0] && moveOptions[i]){
+            move = moveOptions[i];
+          }
+        }
+      }
+    } else if(avoid.length == 2){
+      if(move == options[avoid[0]] || move == options[avoid[1]]){
+        //change this move if there is another valid move
+        for(i = 0; i < options.length; i++){
+          if(i != avoid[0] && i != avoid[1] && moveOptions[i]){
+            move = moveOptions[i]
+          }
+        }
+      }
+    }
+  }
 
+  console.log(avoid)
+  
   var data = {
     move: move, // one of: ['up','down','left','right']
+    avoid: avoid,
     taunt: taunts[taunt],
     head: snakeHead,
     nearestFood: nearestFood,
