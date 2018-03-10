@@ -20,7 +20,7 @@ https://ouroboyos.herokuapp.com/
 ## CHANGELOG
 ## [1.6.0] - 2018-03-10
 ### Added
-- tauntSwitcher for 1v1 situations
+- taunt variant for 1v1 situations
 
 ## [1.5.0] - 2018-03-09
 ### Added
