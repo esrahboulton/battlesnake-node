@@ -21,9 +21,11 @@ https://ouroboyos.herokuapp.com/
 ### Changed
 - moved find food into foodHelper
 - moved pick move into moveHelper
+- cleaned up index.js
 
 ### Added
 - getID and getIndex in jsonHelper
+- pick function in pathHelper to select a random move in the path
 
 ### Removed
 - removed onevoneMeHelper.js

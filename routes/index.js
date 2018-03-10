@@ -7,7 +7,6 @@ var pathHelper = require('../helpers/pathHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
-//var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
 
@@ -15,7 +14,7 @@ var taunts = [
   'You\'re hisssstory!',
   'nothing personnel kid',
   'try again sweaty',
-       'haha me too thanks',
+  'haha me too thanks',
   'The Hisssss of Death!'
 ];
 
@@ -39,6 +38,8 @@ router.post('/move', function (req, res) {
   var ID = jsonHelper.getID(req)
   var index = jsonHelper.getIndex(req);
   var snakes = jsonHelper.getSnakes(req)
+  var turn = req.body.turn
+  var taunt = Math.floor((turn/10))%5
   var moveOptions = [true, true, true, true];
   var moveIndex = moveHelper.pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
@@ -52,40 +53,10 @@ router.post('/move', function (req, res) {
   if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)){
     // 1v1 time. We are king snek, actively kill the other snek
     var path = pathHelper.findPath(snakeHead, snakes[1-index].body.data[0])
-    // move = pathHelper.pick(path, moveOptions, options)
-    // var choice = Math.random()
-    // var pathOption = 0
-    // if(choice <= 0.5){
-    //   pathOption = 1
-    // }
-    // if (path.length > 1) {
-    //   move = path[pathOption]
-    //   for(i = 0; i < moveOptions.length; i++){
-    //     if(move === options[i] && !moveOptions[i]){
-    //       move = path[1 - pathOption]
-    //     }
-    //   }
-    // } else {
-    //   move = path[0]
-    // }
+    move = pathHelper.pick(path, moveOptions, options)
   } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     move = pathHelper.pick(path, moveOptions, options)
-    // var choice = Math.random()
-    // var pathOption = 0
-    // if(choice <= 0.5){
-    //   pathOption = 1
-    // }
-    // if (path.length > 1) {
-    //   move = path[pathOption]
-    //   for(i = 0; i < moveOptions.length; i++){
-    //     if(move === options[i] && !moveOptions[i]){
-    //       move = path[1 - pathOption]
-    //     }
-    //   }
-    // } else {
-    //   move = path[0]
-    // }
   } else if (!(killMove === 'no kill')) {
     move = killMove
   }else {
@@ -98,22 +69,6 @@ router.post('/move', function (req, res) {
     var tail = req.body.you.body.data[myLength-1]
     var path = pathHelper.findPath(snakeHead, tail)
     move = pathHelper.pick(path, moveOptions, options)
-    // var choice = Math.random()
-    // var pathOption = 0
-    // if(choice <= 0.5){
-    //   pathOption = 1
-    // }
-    // if (path.length > 1) {
-    //   move = path[pathOption]
-    //   for(i = 0; i < moveOptions.length; i++){
-    //     if(move === options[i] && !moveOptions[i]){
-    //       move = path[1 - pathOption]
-    //     }
-    //   }
-    // } else {
-    //   move = path[0]
-    // }
-
   }
 
   //Check if move is invalid
@@ -123,11 +78,7 @@ router.post('/move', function (req, res) {
     }
   }
 
-  var turn = req.body.turn
-  var taunt = Math.floor((turn/10))%5
-
   var data = {
-    //moveOptions: moveOptions,
     move: move, // one of: ['up','down','left','right']
     taunt: taunts[taunt],
     head: snakeHead,
