@@ -10,12 +10,12 @@ https://ouroboyos.herokuapp.com/
 - Visit http://localhost:3000
 
 ## TODO
-- review avoid function
-- review kill function
-- implement middle-out strategy
-- implement forward checking to avoid getting trapped
-- branch into clean release branch, merge into master
-	- setup new branch w/ randomized movement snake, create new heroku app
+1. implement forward checking to avoid getting trapped
+2. review avoid function
+3. review kill function
+4. branch into clean release branch, merge into master
+5. implement middle-out strategy
+⋅⋅* setup new branch w/ randomized movement snake, create new heroku app
 
 ## CHANGELOG
 ## [1.5.0] - 2018-03-09
