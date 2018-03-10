@@ -1,32 +1,32 @@
-function getSnakes(req){
-	return req.body.snakes.data;
+function getSnakes(req) {
+  return req.body.snakes.data;
 }
 
-function getFood(req){
-	return req.body.food.data;
+function getFood(req) {
+  return req.body.food.data;
 }
 
-function getYou(req){
-	return req.body.you.data
+function getYou(req) {
+  return req.body.you.data
 }
 
 function getBody(req) {
-	return req.body.you.body.data.length
+  return req.body.you.body.data.length
 }
 
-function getID(req){
-	return req.body.you.id
+function getID(req) {
+  return req.body.you.id
 }
 
-function getIndex (req){
-	var ID = getID(req)
-  	var snakes = getSnakes(req)
-  	for(i = 0; i < snakes.length; i++){
-    	if(snakes[i].id == ID){
-      		return i;
-    	}
-  	}
-  	return -1
+function getIndex(req) {
+  var ID = getID(req)
+  var snakes = getSnakes(req)
+  for (i = 0; i < snakes.length; i++) {
+    if (snakes[i].id == ID) {
+      return i;
+    }
+  }
+  return -1
 }
 
 exports.getSnakes = getSnakes;

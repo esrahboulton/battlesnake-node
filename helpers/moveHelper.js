@@ -10,7 +10,7 @@ function pickMove(data, moveOptions) {
   sneksHelper.avoidSneks(data, head, moveOptions)
   wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
-  for (i=0; i < moveOptions.length; i++) {
+  for (i = 0; i < moveOptions.length; i++) {
     if (moveOptions[i] === true) {
       return i
     }

@@ -1,20 +1,20 @@
 var jsonHelper = require('../helpers/jsonHelper')
 var snakeHeadHelper = require('../helpers/snakeHead')
 
-function needFood(data){
+function needFood(data) {
   var snakeHealth = data.you.health
   var wallHeight = data.height
   var wallWidth = data.width
   var dimSum = wallWidth + wallHeight
   var numFood = data.food.data.length
-  var threshold = 50 - (10*numFood)
-  if(threshold > 0){
+  var threshold = 50 - (10 * numFood)
+  if (threshold > 0) {
     dimSum += threshold
   }
 
   if (snakeHealth <= dimSum) {
     return true;
-  } else{
+  } else {
     return false;
   }
 }
@@ -23,9 +23,9 @@ function findFood(data, req) {
   var foodLocation = jsonHelper.getFood(req)
   var head = snakeHeadHelper.snakeHead(data.you)
   var dist = []
-  if (foodLocation.length >= 1){
+  if (foodLocation.length >= 1) {
     // go through all food on board
-    for (var i = 0; i < foodLocation.length; i++){
+    for (var i = 0; i < foodLocation.length; i++) {
       var x = Math.abs(head.x - foodLocation[i].x)
       var y = Math.abs(head.y - foodLocation[i].y)
       dist[i] = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
