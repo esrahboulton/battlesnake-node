@@ -86,7 +86,7 @@ router.post('/move', function (req, res) {
       if(move == options[avoid[0]]){
         for(i = 0; i < options.length; i++){
           if(i != avoid[0] && moveOptions[i]){
-            move = moveOptions[i];
+            move = options[i];
           }
         }
       }
@@ -95,7 +95,7 @@ router.post('/move', function (req, res) {
         //change this move if there is another valid move
         for(i = 0; i < options.length; i++){
           if(i != avoid[0] && i != avoid[1] && moveOptions[i]){
-            move = moveOptions[i]
+            move = options[i]
           }
         }
       }
@@ -103,7 +103,7 @@ router.post('/move', function (req, res) {
   }
 
   console.log(avoid)
-  
+
   var data = {
     move: move, // one of: ['up','down','left','right']
     avoid: avoid,
