@@ -34,4 +34,26 @@ function findPath(head, target){
   var path = horiz.concat(vert)
   return path
 }
+
+function pick(path, moveOptions, options) {
+  var move;
+  var choice = Math.random()
+  var pathOption = 0
+  if(choice <= 0.5){
+    pathOption = 1
+  }
+  if (path.length > 1) {
+    move = path[pathOption]
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = path[1 - pathOption]
+      }
+    }
+  } else {
+    move = path[0]
+  }
+  return move
+}
+
 exports.findPath = findPath;
+exports.pick = pick
