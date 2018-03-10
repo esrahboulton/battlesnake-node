@@ -4,29 +4,28 @@ var router  = express.Router()
 var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
 var pathHelper = require('../helpers/pathHelper')
-var selfHelper = require('../helpers/selfHelper')
+//var selfHelper = require('../helpers/selfHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 //var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
+var moveHelper = require('../helpers/moveHelper')
 
-function pickMove(data, moveOptions) {
-  var head = snakeHeadHelper.snakeHead(data.you);
-  var wallHeight = data.height;
-  var wallWidth = data.width;
+// function pickMove(data, moveOptions) {
+//   var head = snakeHeadHelper.snakeHead(data.you);
+//   var wallHeight = data.height;
+//   var wallWidth = data.width;
 
-  senksHelper.avoidSenks(data, head, moveOptions)
-  //killHelper.killOrAvoid(data, head, moveOptions)
-  //selfHelper.avoidSelf(data, head, moveOptions)
-  wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)
+//   senksHelper.avoidSenks(data, head, moveOptions)
+//   wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
-  for (i=0; i < moveOptions.length; i++) {
-    if (moveOptions[i] === true) {
-      return i
-    }
-  }
-}
+//   for (i=0; i < moveOptions.length; i++) {
+//     if (moveOptions[i] === true) {
+//       return i
+//     }
+//   }
+// }
 
 var taunts = [
   'You\'re hisssstory!',
@@ -63,7 +62,7 @@ router.post('/move', function (req, res) {
   }
 
   var moveOptions = [true, true, true, true];
-  var moveIndex = pickMove(req.body, moveOptions)
+  var moveIndex = moveHelper.pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = foodHelper.findFood(req.body, req)

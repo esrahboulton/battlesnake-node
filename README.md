@@ -20,9 +20,11 @@ https://ouroboyos.herokuapp.com/
 ## [1.5.0] - 2018-03-09
 ### Changed
 - moved find food into foodHelper
+- moved pick move into moveHelper
 
 ### Removed
 - removed onevoneMeHelper.js
+- removed selfHelper.js
 
 ## [1.4.0] - 2018-03-08
 ### Changed
