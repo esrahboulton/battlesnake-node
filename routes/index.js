@@ -102,13 +102,12 @@ router.post('/move', function (req, res) {
     }
   }
 
-  function tauntSwitcher(req) {
-    if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)) {
-      var enemyName = snakes.name
-      var tauntBoi = 'rip, '+enemyName
-    } else {
-      var tauntBoi = taunts[taunt];
-    }
+  if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)) {
+    var enemyName = snakes.name
+    console.log(enemyName)
+    var tauntBoi = 'rip, '+enemyName
+  } else {
+    var tauntBoi = taunts[taunt];
   }
 
   console.log(avoid)
@@ -116,7 +115,7 @@ router.post('/move', function (req, res) {
   var data = {
     move: move, // one of: ['up','down','left','right']
     avoid: avoid,
-    taunt: tauntSwitcher,
+    taunt: tauntBoi,
     head: snakeHead,
     nearestFood: nearestFood,
     needsFood: needsFood,
