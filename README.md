@@ -10,7 +10,6 @@ https://ouroboyos.herokuapp.com/
 - Visit http://localhost:3000
 
 ## TODO
-- clean routes/index
 - write avoid function
 - review kill function
 - implement middle-out strategy
@@ -21,7 +20,7 @@ https://ouroboyos.herokuapp.com/
 ### Changed
 - moved find food into foodHelper
 - moved pick move into moveHelper
-- cleaned up index.js
+- cleaned up routes/index
 
 ### Added
 - getID and getIndex in jsonHelper
