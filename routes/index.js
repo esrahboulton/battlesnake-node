@@ -103,7 +103,7 @@ router.post('/move', function (req, res) {
   }
 
   if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)) {
-    var enemyName = req.snakes.data.body.data.name
+    var enemyName = snakes[1-index].body.data.name
     var tauntBoi = 'rip, '+enemyName
   } else {
     var tauntBoi = taunts[taunt];
