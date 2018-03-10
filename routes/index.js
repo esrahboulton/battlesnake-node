@@ -66,8 +66,7 @@ router.post('/move', function (req, res) {
 
     //follow tail
     var myLength = jsonHelper.getBody(req)
-    //var tail = req.body.you.body.data[myLength-1]
-    var tail = myLength-1
+    var tail = req.body.you.body.data[myLength-1]
     var path = pathHelper.findPath(snakeHead, tail)
     move = pathHelper.pick(path, moveOptions, options)
   }
