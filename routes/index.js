@@ -4,28 +4,12 @@ var router  = express.Router()
 var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
 var pathHelper = require('../helpers/pathHelper')
-//var selfHelper = require('../helpers/selfHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 //var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
-
-// function pickMove(data, moveOptions) {
-//   var head = snakeHeadHelper.snakeHead(data.you);
-//   var wallHeight = data.height;
-//   var wallWidth = data.width;
-
-//   senksHelper.avoidSenks(data, head, moveOptions)
-//   wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)
-
-//   for (i=0; i < moveOptions.length; i++) {
-//     if (moveOptions[i] === true) {
-//       return i
-//     }
-//   }
-// }
 
 var taunts = [
   'You\'re hisssstory!',
@@ -52,15 +36,9 @@ router.post('/start', function (req, res) {
 
 // Handle POST request to '/move'
 router.post('/move', function (req, res) {
-  var myID = req.body.you.id
-  var myIndex;
+  var ID = jsonHelper.getID(req)
+  var index = jsonHelper.getIndex(req);
   var snakes = jsonHelper.getSnakes(req)
-  for(i = 0; i < snakes.length; i++){
-    if(snakes[i].id == myID){
-      myIndex = i
-    }
-  }
-
   var moveOptions = [true, true, true, true];
   var moveIndex = moveHelper.pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
@@ -72,10 +50,10 @@ router.post('/move', function (req, res) {
   var killMove = killHelper.kill(req.body, snakeHead, moveOptions)
   //console.log(killMove)
 
-  if(snakes.length == 2 && snakes[1-myIndex].body.data.length < jsonHelper.getBody(req)){
+  if(snakes.length == 2 && snakes[1-index].body.data.length < jsonHelper.getBody(req)){
     // 1v1 time
     //We are king snek, actively kill the other snek
-    var path = pathHelper.findPath(snakeHead, snakes[1-myIndex].body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes[1-index].body.data[0])
     var choice = Math.random()
     var pathOption = 0
     if(choice <= 0.5){

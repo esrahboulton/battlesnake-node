@@ -22,6 +22,9 @@ https://ouroboyos.herokuapp.com/
 - moved find food into foodHelper
 - moved pick move into moveHelper
 
+### Added
+- getID and getIndex in jsonHelper
+
 ### Removed
 - removed onevoneMeHelper.js
 - removed selfHelper.js
