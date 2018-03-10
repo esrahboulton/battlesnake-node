@@ -10,7 +10,6 @@ var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 //var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
-var onevoneMeHelper = require('../helpers/onevoneMeHelper')
 
 function pickMove(data, moveOptions) {
   var head = snakeHeadHelper.snakeHead(data.you);
@@ -47,11 +46,44 @@ function findFood(data, req) {
   return foodLocation[0]
 }
 
+function lookAhead(depth, move, body){
+  console.log('here')
+  if(depth == 0){
+    return true;
+  }
+  var trapped = false;
+  var head = body[0];
+  var newHead;
+  //['left', 'right', 'up', 'down']
+  if(move === 'left'){
+    newHead = head.x -1;
+  }else if(move === 'right'){
+    newHead = head.x +1;
+  }else if(move === 'up'){
+    newHead = head.y -1;
+  }else if(move === 'down'){
+    newHead = head.y +1;
+  }
+
+  body = body.slice(body.length -1);
+  //Add a segment to the head of the snake and then check for vaild moves
+  body.unshift()
+
+
+  return lookAhead(depth -1, move, body);
+
+  // if(trapped){
+  //   return trapped;
+  // }else {
+  //   return lookAhead(depth -1, move, body);
+  // }
+}
+
 var taunts = [
   'You\'re hisssstory!',
   'nothing personnel kid',
   'try again sweaty',
-  'haha me too thanks',
+       'haha me too thanks',
   'The Hisssss of Death!'
 ];
 
@@ -80,7 +112,7 @@ router.post('/move', function (req, res) {
       myIndex = i
     }
   }
-  
+
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
@@ -164,11 +196,13 @@ router.post('/move', function (req, res) {
     }
   }
 
+  lookAhead(0, 'left', req.body.you.body.data)
+
   //console.log(move)
   //console.log(moveOptions)
   var turn = req.body.turn
   var taunt = Math.floor((turn/10))%5
-  
+
   var data = {
     move: move, // one of: ['up','down','left','right']
     taunt: taunts[taunt],
@@ -177,8 +211,8 @@ router.post('/move', function (req, res) {
     needsFood: needsFood,
     path: pathHelper.findPath(snakeHead, nearestFood)
   }
- 
+
    return res.json(data)
  })
- 
+
  module.exports = router
