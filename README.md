@@ -10,7 +10,7 @@ https://ouroboyos.herokuapp.com/
 - Visit http://localhost:3000
 
 ## TODO
-- write avoid function
+- review avoid function
 - review kill function
 - implement middle-out strategy
 - implement forward checking to avoid getting trapped 
@@ -21,6 +21,7 @@ https://ouroboyos.herokuapp.com/
 - moved find food into foodHelper
 - moved pick move into moveHelper
 - cleaned up routes/index
+- added avoid function
 
 ### Added
 - getID and getIndex in jsonHelper
