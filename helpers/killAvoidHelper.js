@@ -1,7 +1,7 @@
 function killOrAvoid(data, head, moveOptions) {
   var snakes = data.snakes.data
   for (i = 0; i < snakes.length; i++) {
-    var snek = snakes[i].body.data;
+    var snek = snakes[i].body;
     var sX = snek[0].x
     var sY = snek[0].y
 

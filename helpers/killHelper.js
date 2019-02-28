@@ -1,8 +1,8 @@
 function kill(data, head) {
   var snakes = data.snakes.data
   for (i = 0; i < snakes.length; i++) {
-    var snek = snakes[i].body.data;
-    if (snek.length >= data.you.body.data.length) {
+    var snek = snakes[i].body;
+    if (snek.length >= data.you.body.length) {
       //They are bigger so we should not try and kill
       continue
     }

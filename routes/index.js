@@ -52,11 +52,11 @@ router.post('/move', function(req, res) {
 
   var killMove = killHelper.kill(req.body, snakeHead)
 
-  if (snakes.length == 2 && snakes[1 - index].body.data.length < jsonHelper.getBody(req)) {
+  if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req)) {
     // 1v1 time. We are king snek, actively kill the other snek
     var enemyName = snakes[1 - index].name
     var tauntBoi = 'rip, ' + enemyName
-    var path = pathHelper.findPath(snakeHead, snakes[1 - index].body.data[0])
+    var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
     move = pathHelper.pick(path, moveOptions, options)
   } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
@@ -70,7 +70,7 @@ router.post('/move', function(req, res) {
 
     //follow tail
     var myLength = jsonHelper.getBody(req)
-    var tail = req.body.you.body.data[myLength - 1]
+    var tail = req.body.you.body[myLength - 1]
     var path = pathHelper.findPath(snakeHead, tail)
     if(path.length == 0 ){
       var index = Math.floor((Math.random() * 4))
