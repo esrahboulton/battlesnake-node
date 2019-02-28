@@ -45,13 +45,6 @@ router.post('/move', function(req, res) {
   var snakeHead = snakeHeadHelper.snakeHead(req.you)
   var nearestFood = foodHelper.findFood(req)
   var needsFood = foodHelper.needFood(req)
-  // eat until we are the length of the board
-  if(jsonHelper.getBody(req) <= req.board.height){
-    needsFood = true
-  }
-  if(nearestFood == -1){
-    needsFood = false
-  }
   var move;
 
   var tauntBoi = taunts[taunt];
