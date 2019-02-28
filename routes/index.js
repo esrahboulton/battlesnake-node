@@ -47,7 +47,7 @@ router.post('/move', function(req, res) {
   var needsFood = foodHelper.needFood(req)
   // eat until we are the length of the board
   if(jsonHelper.getBody(req) <= req.board.height){
-    var needsFood = true
+    needsFood = true
   }
   var move;
 
@@ -118,7 +118,7 @@ router.post('/move', function(req, res) {
 
   var data = {
     move: move, // one of: ['up','down','left','right']
-    avoid: avoid,
+    // avoid: avoid,
     taunt: tauntBoi,
     // head: snakeHead,
     // nearestFood: nearestFood,
