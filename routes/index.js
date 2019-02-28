@@ -49,6 +49,9 @@ router.post('/move', function(req, res) {
   if(jsonHelper.getBody(req) <= req.board.height){
     needsFood = true
   }
+  if(nearestFood == -1){
+    needsFood = false
+  }
   var move;
 
   var tauntBoi = taunts[taunt];
