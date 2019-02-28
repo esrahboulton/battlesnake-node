@@ -35,6 +35,7 @@ router.post('/start', function(req, res) {
 
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
+  var req = JOSN.parse(req)
   var ID = jsonHelper.getID(req)
   var index = jsonHelper.getIndex(req);
   var snakes = jsonHelper.getSnakes(req)
@@ -43,8 +44,8 @@ router.post('/move', function(req, res) {
   var moveOptions = [true, true, true, true];
   var moveIndex = moveHelper.pickMove(req, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-  var snakeHead = snakeHeadHelper.snakeHead(re.you)
-  var nearestFood = foodHelper.findFood(req, req)
+  var snakeHead = snakeHeadHelper.snakeHead(req.you)
+  var nearestFood = foodHelper.findFood(req)
   var needsFood = foodHelper.needFood(req)
   var move;
 
