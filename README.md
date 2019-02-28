@@ -21,7 +21,7 @@ https://ouroboyos-random.herokuapp.com/
 3. review kill function
 4. branch into clean release branch, merge into master
 5. implement middle-out strategy
-6. Error check (No food on board causes 500)
+6. error check (No food on board causes 500)
 7. implement space checking to choose the move with more space
 8. implement a check to allow for tail moves (moving into a tail if the snake is not eating)
 
