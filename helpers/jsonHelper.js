@@ -7,7 +7,7 @@ function getFood(req) {
 }
 
 function getYou(req) {
-  return req.body.you.
+  return req.body.you
 }
 
 function getBody(req) {
