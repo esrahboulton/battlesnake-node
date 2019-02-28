@@ -19,8 +19,8 @@ function needFood(data) {
   }
 }
 
-function findFood(data, req) {
-  var foodLocation = jsonHelper.getFood(req)
+function findFood(data) {
+  var foodLocation = jsonHelper.getFood(data)
   var head = snakeHeadHelper.snakeHead(data.you)
   var dist = []
   if (foodLocation.length >= 1) {

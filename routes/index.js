@@ -21,7 +21,6 @@ var taunts = [
 
 // Handle POST request to '/start'
 router.post('/start', function(req, res) {
-
   var data = {
     color: "#FFD957",
     secondary_color: "#D15BFE",
@@ -35,8 +34,7 @@ router.post('/start', function(req, res) {
 
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
-  var req = JOSN.parse(req)
-  var ID = jsonHelper.getID(req)
+  var req = req.body
   var index = jsonHelper.getIndex(req);
   var snakes = jsonHelper.getSnakes(req)
   var turn = req.turn
@@ -124,6 +122,7 @@ router.post('/move', function(req, res) {
     path: pathHelper.findPath(snakeHead, nearestFood)
   }
   return res.json(data)
+  return res.json({"move":"up"})
 })
 router.post('/end', function(req, res) {
   return res.json({})
