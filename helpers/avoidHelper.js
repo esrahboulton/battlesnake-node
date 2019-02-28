@@ -1,5 +1,5 @@
 function avoid(data, head) {
-  var snakes = data.snakes
+  var snakes = data.board.snakes
   for (i = 0; i < snakes.length; i++) {
     var snek = snakes[i].body;
     if (snek.length < data.you.body.length) {

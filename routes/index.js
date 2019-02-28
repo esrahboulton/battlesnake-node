@@ -124,12 +124,12 @@ router.post('/move', function(req, res) {
   }
   return res.json(data)
 })
-app.post('/end', function(req, res) {
-  return response.json({})
+router.post('/end', function(req, res) {
+  return res.json({})
 })
 
-app.post('/ping', function(req, res) {
-  return response.json({});
+router.post('/ping', function(req, res) {
+  return res.json({});
 })
 
 module.exports = router

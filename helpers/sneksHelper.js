@@ -1,5 +1,5 @@
 function avoidSneks(data, head, moveOptions) {
-  var snakes = data.snakes.data
+  var snakes = data.board.snakes
   for (i = 0; i < snakes.length; i++) {
     var snek = snakes[i].body;
     for (j = 0; j < snek.length; j++) {

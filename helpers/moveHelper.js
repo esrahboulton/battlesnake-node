@@ -4,8 +4,8 @@ var wallsHelper = require('../helpers/wallsHelper')
 
 function pickMove(data, moveOptions) {
   var head = snakeHeadHelper.snakeHead(data.you);
-  var wallHeight = data.height;
-  var wallWidth = data.width;
+  var wallHeight = data.board.height;
+  var wallWidth = data.board.width;
 
   sneksHelper.avoidSneks(data, head, moveOptions)
   wallsHelper.avoidWalls(head, wallHeight, wallWidth, moveOptions)

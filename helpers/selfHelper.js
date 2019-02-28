@@ -1,5 +1,5 @@
 function avoidSelf(data, head, moveOptions) {
-  var body = data.you.body.data
+  var body = data.you.body
   for (i = 1; i < body.length; i++) {
     if (head.x - 1 == body[i].x && head.y == body[i].y) {
       //cant go left

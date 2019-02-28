@@ -3,10 +3,10 @@ var snakeHeadHelper = require('../helpers/snakeHead')
 
 function needFood(data) {
   var snakeHealth = data.you.health
-  var wallHeight = data.height
-  var wallWidth = data.width
+  var wallHeight = data.board.height
+  var wallWidth = data.board.width
   var dimSum = wallWidth + wallHeight
-  var numFood = data.food.length
+  var numFood = data.board.food.length
   var threshold = 50 - (10 * numFood)
   if (threshold > 0) {
     dimSum += threshold
