@@ -23,6 +23,10 @@ https://ouroboyos-random.herokuapp.com/
 5. implement middle-out strategy
 
 ## CHANGELOG
+## [2.0.0] - 2019-02-27
+### Added
+- `battlesnake-2019` branch!
+
 ## [1.6.0] - 2018-03-10
 ### Added
 - taunt variant for 1v1 situations
@@ -81,5 +85,3 @@ https://ouroboyos-random.herokuapp.com/
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
 - cleaned empty lines, unnecessary comments
-
-### LOLOLOLOLOLOLOLOLOLOL
