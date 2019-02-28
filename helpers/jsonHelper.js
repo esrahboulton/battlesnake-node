@@ -1,9 +1,9 @@
 function getSnakes(req) {
-  return req.snakes;
+  return req.board.snakes;
 }
 
 function getFood(req) {
-  return req.food;
+  return req.board.food;
 }
 
 function getYou(req) {
