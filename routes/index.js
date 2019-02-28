@@ -38,19 +38,19 @@ router.post('/move', function(req, res) {
   var ID = jsonHelper.getID(req)
   var index = jsonHelper.getIndex(req);
   var snakes = jsonHelper.getSnakes(req)
-  var turn = req.body.turn
+  var turn = req.turn
   var taunt = Math.floor((turn / 10)) % 5
   var moveOptions = [true, true, true, true];
-  var moveIndex = moveHelper.pickMove(req.body, moveOptions)
+  var moveIndex = moveHelper.pickMove(req, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-  var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
-  var nearestFood = foodHelper.findFood(req.body, req)
-  var needsFood = foodHelper.needFood(req.body)
+  var snakeHead = snakeHeadHelper.snakeHead(re.you)
+  var nearestFood = foodHelper.findFood(req, req)
+  var needsFood = foodHelper.needFood(req)
   var move;
 
   var tauntBoi = taunts[taunt];
 
-  var killMove = killHelper.kill(req.body, snakeHead)
+  var killMove = killHelper.kill(req, snakeHead)
 
   if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req)) {
     // 1v1 time. We are king snek, actively kill the other snek
@@ -70,7 +70,7 @@ router.post('/move', function(req, res) {
 
     //follow tail
     var myLength = jsonHelper.getBody(req)
-    var tail = req.body.you.body[myLength - 1]
+    var tail = req.you.body[myLength - 1]
     var path = pathHelper.findPath(snakeHead, tail)
     if(path.length == 0 ){
       var index = Math.floor((Math.random() * 4))
@@ -88,7 +88,7 @@ router.post('/move', function(req, res) {
   }
 
   /// TODO: add avoid, need to not do our current move if another move exists
-  var avoid = avoidHelper.avoid(req.body, snakeHead)
+  var avoid = avoidHelper.avoid(req, snakeHead)
   if (!(avoid[0] === 'all good')) {
     //Avoid something
     if (avoid.length == 1) {

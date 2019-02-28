@@ -1,21 +1,21 @@
 function getSnakes(req) {
-  return req.body.snakes;
+  return req.snakes;
 }
 
 function getFood(req) {
-  return req.body.food;
+  return req.food;
 }
 
 function getYou(req) {
-  return req.body.you
+  return req.you
 }
 
 function getBody(req) {
-  return req.body.you.body.length
+  return req.you.body.length
 }
 
 function getID(req) {
-  return req.body.you.id
+  return req.you.id
 }
 
 function getIndex(req) {
