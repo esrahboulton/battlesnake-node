@@ -120,13 +120,12 @@ router.post('/move', function(req, res) {
     move: move, // one of: ['up','down','left','right']
     avoid: avoid,
     taunt: tauntBoi,
-    head: snakeHead,
-    nearestFood: nearestFood,
-    needsFood: needsFood,
-    path: pathHelper.findPath(snakeHead, nearestFood)
+    // head: snakeHead,
+    // nearestFood: nearestFood,
+    // needsFood: needsFood,
+    // path: pathHelper.findPath(snakeHead, nearestFood)
   }
   return res.json(data)
-  return res.json({"move":"up"})
 })
 router.post('/end', function(req, res) {
   return res.json({})
