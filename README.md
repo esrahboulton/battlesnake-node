@@ -81,3 +81,5 @@ https://ouroboyos-random.herokuapp.com/
 ### Removed
 - removed all functions except pickMove, findFood from routes/index
 - cleaned empty lines, unnecessary comments
+
+### LOLOLOLOLOLOLOLOLOLOL
