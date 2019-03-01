@@ -7,7 +7,7 @@ function needFood(data) {
   var wallWidth = data.board.width
   var dimSum = wallWidth + wallHeight
   var numFood = data.board.food.length
-  var threshold = 50 - (10 * numFood)
+  var threshold = 50 - Math.max((10 * numFood),0)
   if (threshold > 0) {
     dimSum += threshold
   }
