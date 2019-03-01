@@ -10,6 +10,7 @@ var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
 var avoidHelper = require('../helpers/avoidHelper')
+var tailHelper = require('../helpers/tailHelper')
 
 var taunts = [
   'You\'re hisssstory!',
@@ -35,11 +36,11 @@ router.post('/start', function(req, res) {
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
   var req = req.body
-  var move = "up";
   var safeMoves = [true, true, true, true]
   var killMoves = [false, false, false, false]
   // var riskyMoves = [false, false, false, false]
   var head = jsonHelper.getHead(req)
+  var tail = jsonHelper.getTail(req)
   var boardDim = jsonHelper.getHeightWidth(req)
   var food = jsonHelper.getFood(req)
 
@@ -47,6 +48,10 @@ router.post('/move', function(req, res) {
   wallsHelper.avoidWalls(head, boardDim, safeMoves)
   snakesHelper.avoidSnakes(req, head, safeMoves)
   var killMoves = killHelper.kill(req, head)
+
+  // default movement is following tail
+  var move = tailHelper.followTail(head, tail, safeMoves)
+  console.log(move)
   if(food.length != 0){
     // there is food on the board
     if(foodHelper.needFood(req)){

@@ -33,6 +33,11 @@ function getHead(req){
   return req.you.body[0]
 }
 
+function getTail(req){
+  var len = req.you.body.length
+  return req.you.body[len-1]
+}
+
 function getHeightWidth(req){
   return req.board.height
 }
@@ -44,4 +49,5 @@ exports.getBody = getBody;
 exports.getID = getID;
 exports.getIndex = getIndex;
 exports.getHead = getHead;
+exports.getTail = getTail;
 exports.getHeightWidth = getHeightWidth;
