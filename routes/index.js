@@ -4,7 +4,6 @@ var router = express.Router()
 var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
 var pathHelper = require('../helpers/pathHelper')
-//var sneksHelper = require('../helpers/sneksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
@@ -39,7 +38,7 @@ router.post('/move', function(req, res) {
   var snakes = jsonHelper.getSnakes(req)
   var turn = req.turn
   var taunt = Math.floor((turn / 10)) % 5
-  var moveOptions = [true, true, true, true];
+  var moveOptions = [true, true, true, true]
   var moveIndex = moveHelper.pickMove(req, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.you)
@@ -75,10 +74,6 @@ router.post('/move', function(req, res) {
   } else if (!(killMove === 'no kill')) {
     move = killMove
   } else {
-    // Random movement
-    // var index = Math.floor((Math.random() * 4))
-    // move = options[index]
-
     //follow tail
     var myLength = jsonHelper.getBody(req)
     var tail = req.you.body[myLength - 1]
@@ -122,25 +117,19 @@ router.post('/move', function(req, res) {
     }
   }
 
-  // console.log(avoid)
-
   var data = {
     move: move, // one of: ['up','down','left','right']
-    // avoid: avoid,
-    taunt: tauntBoi,
-    // head: snakeHead,
-    // nearestFood: nearestFood,
-    // needsFood: needsFood,
-    // path: pathHelper.findPath(snakeHead, nearestFood)
+    taunt: tauntBoi
   }
   return res.json(data)
 })
+
 router.post('/end', function(req, res) {
   return res.json({})
 })
 
 router.post('/ping', function(req, res) {
-  return res.json({});
+  return res.json({})
 })
 
 module.exports = router
