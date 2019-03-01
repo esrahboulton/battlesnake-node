@@ -45,6 +45,9 @@ router.post('/move', function(req, res) {
   var snakeHead = snakeHeadHelper.snakeHead(req.you)
   var nearestFood = foodHelper.findFood(req)
   var needsFood = foodHelper.needFood(req)
+  if(req.you.body.length < req.board.height){
+    needsFood = true
+  }
   var move;
 
   var tauntBoi = taunts[taunt];
