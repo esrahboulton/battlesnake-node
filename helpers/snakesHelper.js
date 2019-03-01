@@ -1,11 +1,11 @@
 var jsonHelper = require('../helpers/jsonHelper')
 
-function avoidSnakes(data, head, moveOptions) {
+function avoidSnakes(data, head, id, moveOptions) {
   var snakes = data.board.snakes
   for (i = 0; i < snakes.length; i++) {
     var snek = snakes[i].body;
     var len = snek.length
-    if(snakes[i].id == jsonHelper.getID(data)){
+    if(snakes[i].id == id){
       len = len-1
     }
     for (j = 0; j < len; j++) {

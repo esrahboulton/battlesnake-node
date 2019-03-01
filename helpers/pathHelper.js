@@ -1,10 +1,6 @@
 function findPath(head, target) {
   var xMoves = target.x - head.x;
   var yMoves = target.y - head.y;
-  // console.log("xMoves")
-  // console.log(xMoves)
-  // console.log("yMoves")
-  // console.log(yMoves)
   var path = [false, false, false, false]
   if (xMoves < 0) {
     //moving left
@@ -18,7 +14,12 @@ function findPath(head, target) {
   } else if (yMoves > 0) {
     path[3] = true;
   }
-  return path;
+  for(i = 0; i < 4; i++){
+    if(path[i]){
+      return path
+    }
+  }
+  return false
 }
 
 function pick(path, moveOptions) {

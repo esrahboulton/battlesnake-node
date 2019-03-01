@@ -1,16 +1,20 @@
 var express = require('express')
+node_priority = require('node-priority-queue')
 var router = express.Router()
 
-var snakeHeadHelper = require('../helpers/snakeHead')
+// var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
-var pathHelper = require('../helpers/pathHelper')
-var snakesHelper = require('../helpers/snakesHelper')
-var wallsHelper = require('../helpers/wallsHelper')
-var killHelper = require('../helpers/killHelper')
+var safeMovesHelper = require('../helpers/safeMovesHelper')
+var aStar = require('../helpers/aStarHelper')
+// var pathHelper = require('../helpers/pathHelper')
+// var snakesHelper = require('../helpers/snakesHelper')
+// var wallsHelper = require('../helpers/wallsHelper')
+// var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
-var moveHelper = require('../helpers/moveHelper')
-var avoidHelper = require('../helpers/avoidHelper')
+// var moveHelper = require('../helpers/moveHelper')
+// var avoidHelper = require('../helpers/avoidHelper')
 var tailHelper = require('../helpers/tailHelper')
+var boardHelper = require('../helpers/boardHelper')
 
 var taunts = [
   'You\'re hisssstory!',
@@ -36,36 +40,33 @@ router.post('/start', function(req, res) {
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
   var req = req.body
-  var safeMoves = [true, true, true, true]
-  var killMoves = [false, false, false, false]
-  // var riskyMoves = [false, false, false, false]
+  var move = 'down'
   var head = jsonHelper.getHead(req)
-  var tail = jsonHelper.getTail(req)
-  var boardDim = jsonHelper.getHeightWidth(req)
-  var food = jsonHelper.getFood(req)
+  var dim = jsonHelper.getHeightWidth(req)
+  var id = jsonHelper.getID(req)
+  var goal = [1,1]
+  var board = boardHelper.setupBoard(req, dim, id)
+  console.log(board)
+  aStar.aStar(board, )
+  // var opts = ['left', 'right', 'up', 'down']
+  // // these are move where we know there isn't a wall or another snakes body
+  // // still need to add some checks for snakes tail as a risky move?
+  // var moves = safeMovesHelper.safeMoves(req)
+  // var hungry = foodHelper.hungry(req, moves)
+  // var chaseTail = tailHelper.followTail(req, moves)
 
+  // // var kill = ___
+  // // var singleCombat = ___
+  // if(hungry){
+  //   // were hungry and we have a path to food
+    
+  // } else if(chaseTail){
 
-  wallsHelper.avoidWalls(head, boardDim, safeMoves)
-  snakesHelper.avoidSnakes(req, head, safeMoves)
-  var killMoves = killHelper.kill(req, head)
-
-  // default movement is following tail
-  var move = tailHelper.followTail(head, tail, safeMoves)
-  console.log(move)
-  if(food.length != 0){
-    // there is food on the board
-    if(foodHelper.needFood(req)){
-      var nearestFood = foodHelper.findFood(req)
-      // path to nearest food
-      var path = pathHelper.findPath(head, nearestFood)
-      if(path){
-        move = pathHelper.pick(path, safeMoves)
-      }
-    }
-  }
+  // }
   var data = {
     move: move, // one of: ['up','down','left','right']
   }
+  console.log(move)
   return res.json(data)
 })
 

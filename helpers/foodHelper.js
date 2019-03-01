@@ -1,16 +1,14 @@
 var jsonHelper = require('../helpers/jsonHelper')
 var snakeHeadHelper = require('../helpers/snakeHead')
+var pathHelper = require('../helpers/pathHelper')
 
-function needFood(data) {
-  var snakeHealth = data.you.health
-  var wallHeight = data.board.height
-  var wallWidth = data.board.width
+function needFood(req) {
+  var snakeHealth = req.you.health
+  var wallHeight = req.board.height
+  var wallWidth = req.board.width
   var dimSum = wallWidth + wallHeight
-  var numFood = data.board.food.length
-  // var threshold = 50 - (10 * numFood)
-  // if (threshold > 0) {
-  //   dimSum += threshold
-  // }
+  var numFood = req.board.food.length
+  // add threshold here if needed
 
   if (snakeHealth <= dimSum) {
     return true;
@@ -19,9 +17,9 @@ function needFood(data) {
   }
 }
 
-function findFood(data) {
-  var foodLocation = jsonHelper.getFood(data)
-  var head = snakeHeadHelper.snakeHead(data.you)
+function findFood(req) {
+  var foodLocation = jsonHelper.getFood(req)
+  var head = snakeHeadHelper.snakeHead(req.you)
   var dist = []
   if (foodLocation.length >= 1) {
     // go through all food on board
@@ -37,5 +35,24 @@ function findFood(data) {
   return foodLocation[0]
 }
 
-exports.needFood = needFood;
-exports.findFood = findFood;
+function hungry(req, moves){
+  var food = jsonHelper.getFood(req)
+  if(food.length != 0){
+    // food on board
+    if(needFood(req)){
+      var nearestFood = findFood(req)
+      // get path to food and return the move
+      var path = pathHelper.findPath(head, nearestFood)
+      for(i = 0; i < 4; i++){
+        if(path[i] && moves[i]){
+          return path
+        }
+      }
+    }
+  }
+  return false
+}
+
+exports.hungry = hungry;
+// exports.needFood = needFood;
+// exports.findFood = findFood;
