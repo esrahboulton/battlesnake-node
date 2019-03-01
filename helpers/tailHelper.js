@@ -2,13 +2,18 @@ var pathHelper = require('../helpers/pathHelper')
 
 function followTail(head, tail, safeMoves){
     var path = pathHelper.findPath(head, tail)
-    for(i = 0; i < 4; i++){
-        if(path[i] && safeMoves[i]){
-            return pathHelper.pick(path, safeMoves)
+    // if no path exists then we need to make a new choice
+    if(!path){
+        return pathHelper.pick(path, safeMoves)
+    } else {
+        var options = ['left', 'right', 'up', 'down']
+        for(i = 0; i < 4; i++){
+            if(safeMoves[i]){
+                return options[i]
+            }
         }
+        return options[Math.floor((Math.random() * 4))]
     }
-    var moves = ["left", "right", "up", "down"]
-    return moves[Math.floor((Math.random() * 4))]
 }
 
 exports.followTail = followTail;

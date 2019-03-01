@@ -58,7 +58,9 @@ router.post('/move', function(req, res) {
       var nearestFood = foodHelper.findFood(req)
       // path to nearest food
       var path = pathHelper.findPath(head, nearestFood)
-      move = pathHelper.pick(path, safeMoves)
+      if(path){
+        move = pathHelper.pick(path, safeMoves)
+      }
     }
   }
   var data = {
