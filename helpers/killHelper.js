@@ -1,5 +1,6 @@
 function kill(data, head) {
   var snakes = data.board.snakes
+  var killMoves = [false, false, false, false]
   for (i = 0; i < snakes.length; i++) {
     var snek = snakes[i].body;
     if (snek.length >= data.you.body.length) {
@@ -22,44 +23,40 @@ function kill(data, head) {
       //We are on the same vertical line as the enemy
       if (yDist == -2) {
         //They're above us, go up
-        return 'up'
+        killMoves[2] = true
       }
       if (yDist == 2) {
         //They're below us, go down
-        return 'down'
+        killMoves[3] = true
       }
     }
     if (yDist == 0) {
       //We are on the same horizontal line as the enemy
       if (xDist == -2) {
         //They're to the left
-        return 'left'
+        killMoves[0] = true
       }
       if (xDist == 2) {
         //They're to the right
-        return 'right'
+        killMoves[1] = true
       }
     }
-    var choice = Math.random()
+
     //Add more logic here to guess which way they will go
     if (xDist == 1 && yDist == 1) {
       //They're to the right and down
-      if (choice <= 0.5) {
-        return 'right'
-      } else {
-        return 'down'
-      }
+      killMoves[1] = true
+      killMoves[3] = true
     }
     if (xDist == 1 && yDist == -1) {
       //They're to the right and up
-      if (choice <= 0.5) {
-        return 'right'
-      } else {
-        return 'up'
-      }
+      killMoves[1] = true
+      killMoves[2] = true
     }
     if (xDist == -1 && yDist == 1) {
       //They're to the left and down
+      killMoves[0] = true
+      killMoves[3] = true
       if (choice <= 0.5) {
         return 'left'
       } else {
@@ -68,13 +65,10 @@ function kill(data, head) {
     }
     if (xDist == -1 && yDist == -1) {
       //They're left and up
-      if (choice <= 0.5) {
-        return 'left'
-      } else {
-        return 'up'
-      }
+      killMoves[0] = true
+      killMoves[2] = true
     }
   }
-  return 'no kill'
+  return killMoves
 }
 exports.kill = kill;

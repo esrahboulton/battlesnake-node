@@ -23,10 +23,18 @@ function getIndex(req) {
   var snakes = getSnakes(req)
   for (i = 0; i < snakes.length; i++) {
     if (snakes[i].id == ID) {
-      return i;
+      return i
     }
   }
   return -1
+}
+
+function getHead(req){
+  return req.you.body[0]
+}
+
+function getHeightWidth(req){
+  return req.board.height
 }
 
 exports.getSnakes = getSnakes;
@@ -35,3 +43,5 @@ exports.getYou = getYou;
 exports.getBody = getBody;
 exports.getID = getID;
 exports.getIndex = getIndex;
+exports.getHead = getHead;
+exports.getHeightWidth = getHeightWidth;

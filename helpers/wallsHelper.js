@@ -1,9 +1,9 @@
-function avoidWalls(head, height, width, moveOptions) {
+function avoidWalls(head, dim, moveOptions) {
   if (head.x - 1 < 0) {
     //cant go left
     moveOptions[0] = false
   }
-  if (head.x + 1 >= width) {
+  if (head.x + 1 >= dim) {
     //cant go right
     moveOptions[1] = false
   }
@@ -11,7 +11,7 @@ function avoidWalls(head, height, width, moveOptions) {
     //cant go up
     moveOptions[2] = false
   }
-  if (head.y + 1 >= height) {
+  if (head.y + 1 >= dim) {
     //cant go down
     moveOptions[3] = false
   }

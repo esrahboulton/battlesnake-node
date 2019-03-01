@@ -1,6 +1,6 @@
 var jsonHelper = require('../helpers/jsonHelper')
 
-function avoidSneks(data, head, moveOptions) {
+function avoidSnakes(data, head, moveOptions) {
   var snakes = data.board.snakes
   for (i = 0; i < snakes.length; i++) {
     var snek = snakes[i].body;
@@ -28,4 +28,4 @@ function avoidSneks(data, head, moveOptions) {
     }
   }
 }
-exports.avoidSneks = avoidSneks;
+exports.avoidSnakes = avoidSnakes;

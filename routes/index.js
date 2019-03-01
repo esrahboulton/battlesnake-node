@@ -4,7 +4,7 @@ var router = express.Router()
 var snakeHeadHelper = require('../helpers/snakeHead')
 var foodHelper = require('../helpers/foodHelper')
 var pathHelper = require('../helpers/pathHelper')
-//var sneksHelper = require('../helpers/sneksHelper')
+var snakesHelper = require('../helpers/snakesHelper')
 var wallsHelper = require('../helpers/wallsHelper')
 var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
@@ -35,106 +35,33 @@ router.post('/start', function(req, res) {
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
   var req = req.body
-  var index = jsonHelper.getIndex(req)
-  var snakes = jsonHelper.getSnakes(req)
-  var turn = req.turn
-  var taunt = Math.floor((turn / 10)) % 5
-  var moveOptions = [true, true, true, true];
-  var moveIndex = moveHelper.pickMove(req, moveOptions)
-  var options = ['left', 'right', 'up', 'down']
-  var snakeHead = snakeHeadHelper.snakeHead(req.you)
-  if(req.board.food.length != 0){
-    var nearestFood = foodHelper.findFood(req)
-  } else {
-    var nearestFood = false
-  }
-  if(nearestFood != false){
-    var needsFood = foodHelper.needFood(req)
-    if(req.you.body.length < req.board.height){
-      needsFood = true
-    }
-  } else {
-    needsFood = false
-  }
-  var move;
+  var move = "up";
+  var safeMoves = [true, true, true, true]
+  var killMoves = [false, false, false, false]
+  // var riskyMoves = [false, false, false, false]
+  var head = jsonHelper.getHead(req)
+  var boardDim = jsonHelper.getHeightWidth(req)
+  var food = jsonHelper.getFood(req)
 
-  var tauntBoi = taunts[taunt];
 
-  var killMove = killHelper.kill(req, snakeHead)
-
-  if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req)) {
-    // 1v1 time. We are king snek, actively kill the other snek
-    var enemyName = snakes[1 - index].name
-    var tauntBoi = 'rip, ' + enemyName
-    var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
-    move = pathHelper.pick(path, moveOptions, options)
-  } else if (nearestFood != false) {
-  // } else if (needsFood) {
-    var path = pathHelper.findPath(snakeHead, nearestFood)
-    move = pathHelper.pick(path, moveOptions, options)
-  } else if (!(killMove === 'no kill')) {
-    move = killMove
-  } else {
-    // Random movement
-    // var index = Math.floor((Math.random() * 4))
-    // move = options[index]
-
-    //follow tail
-    var myLength = jsonHelper.getBody(req)
-    var tail = req.you.body[myLength - 1]
-    var path = pathHelper.findPath(snakeHead, tail)
-    if(path.length == 0 ){
-      var index = Math.floor((Math.random() * 4))
-      move = options[index]
-    } else {
-      move = pathHelper.pick(path, moveOptions, options)
+  wallsHelper.avoidWalls(head, boardDim, safeMoves)
+  snakesHelper.avoidSnakes(req, head, safeMoves)
+  var killMoves = killHelper.kill(req, head)
+  if(food.length != 0){
+    // there is food on the board
+    if(foodHelper.needFood(req)){
+      var nearestFood = foodHelper.findFood(req)
+      // path to nearest food
+      var path = pathHelper.findPath(head, nearestFood)
+      move = pathHelper.pick(path, safeMoves)
     }
   }
-
-  //Check if move is invalid
-  for (i = 0; i < options.length; i++) {
-    if (move === options[i] && !moveOptions[i]) {
-      move = options[moveIndex]
-    }
-  }
-
-  /// TODO: add avoid, need to not do our current move if another move exists
-  var avoid = avoidHelper.avoid(req, snakeHead)
-  if (!(avoid[0] === 'all good')) {
-    //Avoid something
-    if (avoid.length == 1) {
-      if (move == options[avoid[0]]) {
-        for (i = 0; i < options.length; i++) {
-          if (i != avoid[0] && moveOptions[i]) {
-            move = options[i];
-          }
-        }
-      }
-    } else if (avoid.length == 2) {
-      if (move == options[avoid[0]] || move == options[avoid[1]]) {
-        //change this move if there is another valid move
-        for (i = 0; i < options.length; i++) {
-          if (i != avoid[0] && i != avoid[1] && moveOptions[i]) {
-            move = options[i]
-          }
-        }
-      }
-    }
-  }
-
-  // console.log(avoid)
-
   var data = {
     move: move, // one of: ['up','down','left','right']
-    // avoid: avoid,
-    taunt: tauntBoi,
-    // head: snakeHead,
-    // nearestFood: nearestFood,
-    // needsFood: needsFood,
-    // path: pathHelper.findPath(snakeHead, nearestFood)
   }
   return res.json(data)
 })
+
 router.post('/end', function(req, res) {
   return res.json({})
 })
