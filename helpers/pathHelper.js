@@ -47,7 +47,7 @@ function pick(path, moveOptions) {
   } else if(opt1){
     // use option 1
     move = moves[opt1]
-  } else if(opt2){
+  } else {
     // use option2
     move = moves[opt2]
   }
