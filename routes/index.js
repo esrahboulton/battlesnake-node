@@ -68,7 +68,8 @@ router.post('/move', function(req, res) {
     var tauntBoi = 'rip, ' + enemyName
     var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
     move = pathHelper.pick(path, moveOptions, options)
-  } else if (needsFood) {
+  } else if (nearestFood != false) {
+  // } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     move = pathHelper.pick(path, moveOptions, options)
   } else if (!(killMove === 'no kill')) {
