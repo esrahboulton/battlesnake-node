@@ -35,7 +35,7 @@ router.post('/start', function(req, res) {
 // Handle POST request to '/move'
 router.post('/move', function(req, res) {
   var req = req.body
-  var index = jsonHelper.getIndex(req);
+  var index = jsonHelper.getIndex(req)
   var snakes = jsonHelper.getSnakes(req)
   var turn = req.turn
   var taunt = Math.floor((turn / 10)) % 5
@@ -121,7 +121,7 @@ router.post('/move', function(req, res) {
     }
   }
 
-  console.log(avoid)
+  // console.log(avoid)
 
   var data = {
     move: move, // one of: ['up','down','left','right']
