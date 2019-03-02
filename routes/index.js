@@ -9,6 +9,7 @@ var killHelper = require('../helpers/killHelper')
 var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
 var avoidHelper = require('../helpers/avoidHelper')
+var boardHeler = require('../helpers/boardHelper')
 
 var taunts = [
   'You\'re hisssstory!',
@@ -42,6 +43,12 @@ router.post('/move', function(req, res) {
   var moveIndex = moveHelper.pickMove(req, moveOptions)
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.you)
+
+  var dim = req.board.height
+  var id = jsonHelper.getID(req)
+  var board = boardHeler.setupBoard(req, dim, id)
+  console.log(board)
+
   if(req.board.food.length != 0){
     var nearestFood = foodHelper.findFood(req)
   } else {
@@ -49,9 +56,9 @@ router.post('/move', function(req, res) {
   }
   if(nearestFood != false){
     var needsFood = foodHelper.needFood(req)
-    // if(req.you.body.length < req.board.height){
-    //   needsFood = true
-    // }
+    if(req.you.body.length < req.board.height){
+      needsFood = true
+    }
   } else {
     needsFood = false
   }
@@ -67,7 +74,7 @@ router.post('/move', function(req, res) {
     var tauntBoi = 'rip, ' + enemyName
     var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
     move = pathHelper.pick(path, moveOptions, options)
-  } else if (nearestFood != false) {
+  } else if (nearestFood != false && needsFood) {
   // } else if (needsFood) {
     var path = pathHelper.findPath(snakeHead, nearestFood)
     move = pathHelper.pick(path, moveOptions, options)
