@@ -11,21 +11,12 @@ var moveHelper = require('../helpers/moveHelper')
 var avoidHelper = require('../helpers/avoidHelper')
 var boardHeler = require('../helpers/boardHelper')
 
-var taunts = [
-  'You\'re hisssstory!',
-  'nothing personnel kid',
-  'try again sweaty',
-  'haha me too thanks',
-  'The Hisssss of Death!'
-];
-
 // Handle POST request to '/start'
 router.post('/start', function(req, res) {
   var data = {
     color: "#FFD957",
     secondary_color: "#D15BFE",
     head_url: "https://i.ytimg.com/vi/ZCVTIF1ey0c/hqdefault.jpg",
-    taunt: "OH GOD NOT THE BEES",
     head_type: "tongue",
     tail_type: "skinny"
   }
@@ -37,8 +28,6 @@ router.post('/move', function(req, res) {
   var req = req.body
   var index = jsonHelper.getIndex(req)
   var snakes = jsonHelper.getSnakes(req)
-  var turn = req.turn
-  var taunt = Math.floor((turn / 10)) % 5
   var moveOptions = [true, true, true, true]
   var moveIndex = moveHelper.pickMove(req, moveOptions)
   var options = ['left', 'right', 'up', 'down']
@@ -64,14 +53,11 @@ router.post('/move', function(req, res) {
   }
   var move;
 
-  var tauntBoi = taunts[taunt];
-
   var killMove = killHelper.kill(req, snakeHead)
 
   if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req)) {
     // 1v1 time. We are king snek, actively kill the other snek
     var enemyName = snakes[1 - index].name
-    var tauntBoi = 'rip, ' + enemyName
     var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
     move = pathHelper.pick(path, moveOptions, options)
   } else if (nearestFood != false && needsFood) {
@@ -126,7 +112,6 @@ router.post('/move', function(req, res) {
 
   var data = {
     move: move, // one of: ['up','down','left','right']
-    taunt: tauntBoi
   }
   return res.json(data)
 })
