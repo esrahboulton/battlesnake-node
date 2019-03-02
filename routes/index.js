@@ -33,10 +33,10 @@ router.post('/move', function(req, res) {
   var options = ['left', 'right', 'up', 'down']
   var snakeHead = snakeHeadHelper.snakeHead(req.you)
 
-  // var dim = req.board.height
-  // var id = jsonHelper.getID(req)
-  // var board = boardHeler.setupBoard(req, dim, id)
-  // console.log(board)
+  var dim = req.board.height
+  var id = jsonHelper.getID(req)
+  var board = boardHeler.setupBoard(req, dim, id)
+  console.log(board)
 
   if(req.board.food.length != 0){
     var nearestFood = foodHelper.findFood(req)
