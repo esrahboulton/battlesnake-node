@@ -24,7 +24,7 @@ router.post('/start', function(req, res) {
 })
 
 // Handle POST request to '/move'
-router.post('/move', function(req, res) {
+router.post('/move', async function(req, res) {
   try {
     var req = req.body
     var index = jsonHelper.getIndex(req)
@@ -36,7 +36,7 @@ router.post('/move', function(req, res) {
 
     var dim = req.board.height
     var id = jsonHelper.getID(req)
-    var board = boardHeler.setupBoard(req, dim, id)
+    var board = await boardHeler.setupBoard(req, dim, id)
     console.log(board)
 
     if(req.board.food.length != 0){
