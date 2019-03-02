@@ -9,11 +9,19 @@ function setupBoard(req, dim, id){
   };
 
   var gameBoard = Array(dim).fill().map(
-    () => Array(dim).fill(defaultSquareState)
+    () => Array(dim).fill().map(() => Object.assign({},defaultSquareState))
   )
 
   // addSnakes(gameBoard, req.board.snakes)
+  addFood(gameBoard, req.board.food);
+
   return gameBoard
+}
+
+function addFood(board, food) {
+  food.forEach((f)=> {
+    board[f.x][f.y].contents = FOOD;
+  })
 }
 
 function addSnakes(board, snakes) {
