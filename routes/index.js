@@ -10,6 +10,7 @@ var jsonHelper = require('../helpers/jsonHelper')
 var moveHelper = require('../helpers/moveHelper')
 var avoidHelper = require('../helpers/avoidHelper')
 var boardHeler = require('../helpers/boardHelper')
+var {timeout} = require('../helpers/timeoutHelper')
 
 // Handle POST request to '/start'
 router.post('/start', function(req, res) {
@@ -113,6 +114,12 @@ router.post('/move', function(req, res) {
   var data = {
     move: move, // one of: ['up','down','left','right']
   }
+  timeout(() => {
+    if (!res.headersSent) {
+      console.log("fallback..");
+      res.json(data).end();
+    }
+  })
   return res.json(data)
 })
 
