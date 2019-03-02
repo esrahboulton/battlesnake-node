@@ -19,10 +19,9 @@ https://ouroboyos-random.herokuapp.com/
 1. implement forward checking to avoid getting trapped
 2. review avoid function
 3. review kill function
-4. branch into clean release branch, merge into master
-5. implement middle-out strategy
-6. implement space checking to choose the move with more space
-7. implement a check to allow for tail moves (moving into a tail if the snake is not eating)
+4. implement middle-out strategy
+5. implement space checking to choose the move with more space
+6. implement a check to allow for tail moves (moving into a tail if the snake is not eating)
 
 ## CHANGELOG
 ## [2.0.0] - 2019-02-27
