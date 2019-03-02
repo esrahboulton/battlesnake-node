@@ -49,9 +49,9 @@ router.post('/move', function(req, res) {
   }
   if(nearestFood != false){
     var needsFood = foodHelper.needFood(req)
-    if(req.you.body.length < req.board.height){
-      needsFood = true
-    }
+    // if(req.you.body.length < req.board.height){
+    //   needsFood = true
+    // }
   } else {
     needsFood = false
   }
