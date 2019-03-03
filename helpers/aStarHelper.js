@@ -54,15 +54,19 @@ function getPath(node, start){
     var curr = path[0]
     var nextMove = path[1]
     if(curr.x - nextMove.x == -1){
+        console.log("right")
         return 'right'
     }
     if(curr.x - nextMove.x == +1){
+        console.log("left")
         return 'left'
     }
     if(curr.y - nextMove.y == -1){
+        console.log("down")
         return 'down'
     }
     if(curr.y - nextMove.y == +1){
+        console.log("up")
         return 'up'
     }
     return null
