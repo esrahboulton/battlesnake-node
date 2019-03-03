@@ -21,7 +21,7 @@ async function setupBoard(req, dim, id){
 
   addScore(gameBoard)
   refineScore(gameBoard)
-  return gameBoard
+  return simpleBoard(gameBoard))
 }
 
 async function addFood(board, food) {
@@ -105,6 +105,14 @@ function refineScore(board) {
       square.aggregateScore = aggregateScore
     })
   })
+}
+
+function simpleBoard(board) {
+  return board.map((row) => {
+    return row.map((square) => {
+      return square.aggregateScore
+    });
+  });
 }
 
 exports.setupBoard = setupBoard
