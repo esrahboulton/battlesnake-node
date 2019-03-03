@@ -1,5 +1,6 @@
 const FOOD = "food";
 const SNAKE_BODY = "snakeBody";
+const SNAKE_HEAD = "snakeHead";
 const EMPTY = "empty";
 
 async function setupBoard(req, dim, id){
@@ -31,8 +32,14 @@ async function addFood(board, food) {
 
 async function addSnakes(board, snakes) {
   snakes.forEach((snake) => {
-    snake.body.forEach((bodyDims) => {
-      board[bodyDims.x][bodyDims.y].contents = SNAKE_BODY
+    // this removes the last piece of the snake, then 
+    let lastBody = { x: null, y: null};
+    snake.body.slice(0, snake.body.length - 1).forEach((bodyDims, i) => {
+      if( bodyDims.x === lastBody.x && bodyDims.y === lastBody.y) {
+        return;
+      }
+      board[bodyDims.x][bodyDims.y].contents = i === 0 ? SNAKE_HEAD : SNAKE_BODY
+      lastBody = bodyDims
     })
   })
 }
