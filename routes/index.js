@@ -39,7 +39,7 @@ router.post('/move', async function(req, res) {
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
-    console.log(board)
+    // console.log(board)
 
     // ---------------------------------------------
     // VARIABLES
@@ -146,7 +146,7 @@ router.post('/move', async function(req, res) {
 
     timeout(() => {
       if (!res.headersSent) {
-        console.log("fallback..");
+        // console.log("fallback..");
         res.json(data).end();
       }
     })
