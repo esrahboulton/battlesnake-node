@@ -68,15 +68,15 @@ router.post('/move', async function(req, res) {
     if (needsFood && nearestFood) {
       console.log("food")
       move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
-    } else if (OneVsOne) {
-      console.log("1v1")
-      move = aStarHelper.aStar(
-        snakeHead,
-        snakes[1 - index].body[0],
-        board,
-        dim,
-        dim
-      )
+    // } else if (OneVsOne) {
+    //   console.log("1v1")
+    //   move = aStarHelper.aStar(
+    //     snakeHead,
+    //     snakes[1 - index].body[0],
+    //     board,
+    //     dim,
+    //     dim
+    //   )
     } else {
       console.log("tail")
       move = aStarHelper.aStar(
