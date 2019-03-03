@@ -32,7 +32,7 @@ async function addFood(board, food) {
 
 async function addSnakes(board, snakes) {
   snakes.forEach((snake) => {
-    // this removes the last piece of the snake, then 
+    // this removes the last piece of the snake, then
     let lastBody = { x: null, y: null};
     snake.body.slice(0, snake.body.length - 1).forEach((bodyDims, i) => {
       if( bodyDims.x === lastBody.x && bodyDims.y === lastBody.y) {
@@ -47,7 +47,7 @@ async function addSnakes(board, snakes) {
 function addScore(board) {
   board.forEach((row, xCord) => {
     row.forEach((square, yCord) => {
-      if (square.contents === SNAKE_BODY) {
+      if (square.contents === SNAKE_BODY || square.contents === SNAKE_HEAD) {
         return
       }
 
@@ -79,7 +79,7 @@ function addScore(board) {
 function refineScore(board) {
   board.forEach((row, xCord) => {
     row.forEach((square, yCord) => {
-      if (square.contents === SNAKE_BODY) {
+      if (square.contents === SNAKE_BODY || square.contents === SNAKE_HEAD) {
         return
       }
 
