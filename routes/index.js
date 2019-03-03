@@ -81,7 +81,7 @@ router.post('/move', async function(req, res) {
       console.log("tail")
       move = aStarHelper.aStar(
         snakeHead,
-        snakes[Math.min(index-1, 1)].body[0],
+        req.you.body[req.you.body.length - 1],
         board,
         dim,
         dim
