@@ -70,6 +70,7 @@ router.post('/move', async function(req, res) {
       move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
     } else if (OneVsOne) {
       console.log("1v1")
+      console.log(snakes[1 - index].body[0])
       move = aStarHelper.aStar(
         snakeHead,
         snakes[1 - index].body[0],
