@@ -21,7 +21,7 @@ async function setupBoard(req, dim, id){
 
   addScore(gameBoard)
   refineScore(gameBoard)
-  return simpleBoard(gameBoard))
+  return simpleBoard(gameBoard);
 }
 
 async function addFood(board, food) {
