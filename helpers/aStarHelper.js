@@ -45,6 +45,7 @@ function aStar(start, goal, board, height, width){
 
 function getPath(node, start){
     var path = []
+    path.unshift(node)
     while(node.from != null){
         path.unshift(node.from)
         node = node.from
