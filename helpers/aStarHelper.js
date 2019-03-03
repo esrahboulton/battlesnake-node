@@ -1,19 +1,21 @@
 function aStar(start, goal, board, height, width){
     var closedSet = []
     var openSet = []
-    openSet.push(makeNode(start))
+    var s = makeNode(start, goal)
+    s.g = 0
+    openSet.push(s)
 
     while(openSet.length > 0){
         // get lowsest score
         var nodeIndex = getLowestScore(openSet)
         var node = openSet[nodeIndex]
         // check if we're done
-        if(isGoal(openSet[nodeIndex])){
+        if(isGoal(node, goal)){
             return getPath(node)
         }
 
         // remove node from open
-        delete openSet[nodeIndex]
+        openSet.splice(nodeIndex, 1)
         // add node to closed
         closedSet.push(node)
 
@@ -22,7 +24,7 @@ function aStar(start, goal, board, height, width){
             if(contains(neighbours[j], closedSet)){
                 continue
             }
-            var newNode = makeNode(neighbours[j])
+            var newNode = makeNode(neighbours[j], goal)
             if(contains(neighbours[j], openSet)){
                 newNode = getNode(openSet, neighbours[j])
             } else {
@@ -38,6 +40,7 @@ function aStar(start, goal, board, height, width){
             newNode.f = newGScore + getFScore(newNode, goal)
         }
     }
+    return null
 }
 
 function getPath(node, start){
@@ -46,7 +49,28 @@ function getPath(node, start){
         path.unshift(node.from)
         node = node.from
     }
-    return path
+    var curr = path[0]
+    var nextMove = path[1]
+    if(curr.x - nextMove.x == -1){
+        return 'right'
+    }
+    if(curr.x - nextMove.x == +1){
+        return 'left'
+    }
+    if(curr.y - nextMove.y == -1){
+        return 'down'
+    }
+    if(curr.y - nextMove.y == +1){
+        return 'up'
+    }
+    return null
+}
+
+function isGoal(node, goal){
+    if(node.x == goal.x && node.y == goal.y){
+        return true
+    }
+    return false
 }
 
 function getNeighbours(node, board, height, width){
@@ -88,16 +112,16 @@ function getNode(set, node){
     return null
 }
 
-function makeNode(node){
+function makeNode(node, goal){
     return {"x" : node.x,
             "y" : node.y,
             "g" : Number.POSITIVE_INFINITY,
-            "f" : getFScore(node, goal)},
-            "from" : null
+            "f" : getFScore(node, goal),
+            "from" : null}
 }
 
 function getFScore(node, goal){
-    return Math.abs(node.x - goal.x) + Math.abs(node.y - goal.y)
+    return (Math.abs(node.x - goal.x) + Math.abs(node.y - goal.y))
 }
 
 function getLowestScore(openSet){
@@ -111,3 +135,5 @@ function getLowestScore(openSet){
     }
     return index
 }
+
+exports.aStar = aStar

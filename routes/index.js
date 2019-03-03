@@ -11,6 +11,7 @@ var moveHelper = require('../helpers/moveHelper')
 var avoidHelper = require('../helpers/avoidHelper')
 var boardHeler = require('../helpers/boardHelper')
 var {timeout} = require('../helpers/timeoutHelper')
+var aStarHelper = require('../helpers/aStarHelper')
 
 // Handle POST request to '/start'
 router.post('/start', function(req, res) {
