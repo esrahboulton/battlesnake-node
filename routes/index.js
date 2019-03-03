@@ -41,24 +41,31 @@ router.post('/move', async function(req, res) {
     var board = await boardHeler.setupBoard(req, dim, id)
     console.log(board)
 
+    // ---------------------------------------------
+    // VARIABLES
+    // ---------------------------------------------
+    let nearestFood;
+    let needsFood;
+    let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
+    let killMove = killHelper.kill(req, snakeHead)
+
     if(req.board.food.length != 0){
-      var nearestFood = foodHelper.findFood(req)
+      nearestFood = foodHelper.findFood(req)
     } else {
-      var nearestFood = false
+      nearestFood = false
     }
     if(nearestFood != false){
-      var needsFood = foodHelper.needFood(req)
+      needsFood = foodHelper.needFood(req)
       if(req.you.body.length < req.board.height){
         needsFood = true
       }
     } else {
       needsFood = false
     }
+
     var move;
 
-    var killMove = killHelper.kill(req, snakeHead)
-
-    if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req) && !needsFood)  {
+    if (OneVsOne) {
       // 1v1 time. We are king snek, actively kill the other snek
       var enemyName = snakes[1 - index].name
       var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
@@ -126,7 +133,7 @@ router.post('/move', async function(req, res) {
   } catch(e) {
     console.log(e);
   }
-  
+
 })
 
 router.post('/end', function(req, res) {
