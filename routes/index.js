@@ -68,7 +68,7 @@ router.post('/move', function(req, res) {
 
   var killMove = killHelper.kill(req, snakeHead)
 
-  if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req)) {
+  if (snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req) && !needsFood) {
     // 1v1 time. We are king snek, actively kill the other snek
     var enemyName = snakes[1 - index].name
     var tauntBoi = 'rip, ' + enemyName
