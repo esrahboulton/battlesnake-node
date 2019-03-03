@@ -27,6 +27,7 @@ async function setupBoard(req, dim, id){
 async function addFood(board, food) {
   food.forEach((f)=> {
     board[f.x][f.y].contents = FOOD;
+    board[f.x][f.y].aggregateScore = 5;
   })
 }
 
@@ -102,7 +103,7 @@ function refineScore(board) {
         aggregateScore += left.score
       }
 
-      square.aggregateScore = aggregateScore
+      square.aggregateScore += aggregateScore
     })
   })
 }
