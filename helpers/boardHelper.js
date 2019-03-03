@@ -3,13 +3,14 @@ const SNAKE_BODY = "snakeBody";
 const EMPTY = "empty";
 
 async function setupBoard(req, dim, id){
-  const defaultSquareState = {
-    contents: EMPTY,
-    score: 0,
-  };
-
   var gameBoard = Array(dim).fill().map(
-    () => Array(dim).fill().map(() => Object.assign({},defaultSquareState))
+    () => Array(dim).fill().map(() => {
+      return {
+       contents: EMPTY,
+       score: 0,
+       aggregateScore: 0
+      };
+    })
   )
 
   await Promise.all([
@@ -17,7 +18,8 @@ async function setupBoard(req, dim, id){
     addFood(gameBoard, req.board.food)
   ]);
 
-  addScore(board)
+  addScore(gameBoard)
+  refineScore(gameBoard)
   return gameBoard
 }
 
@@ -38,6 +40,10 @@ async function addSnakes(board, snakes) {
 function addScore(board) {
   board.forEach((row, xCord) => {
     row.forEach((square, yCord) => {
+      if (square.contents === SNAKE_BODY) {
+        return
+      }
+
       let score = 0;
       const top = board[xCord - 1] && board[xCord - 1][yCord]
       const right = board[xCord] && board[xCord][yCord + 1]
@@ -58,6 +64,38 @@ function addScore(board) {
       }
 
       square.score = score;
+    })
+  })
+}
+
+
+function refineScore(board) {
+  board.forEach((row, xCord) => {
+    row.forEach((square, yCord) => {
+      if (square.contents === SNAKE_BODY) {
+        return
+      }
+
+      let aggregateScore = square.score;
+      const top = board[xCord - 1] && board[xCord - 1][yCord]
+      const right = board[xCord] && board[xCord][yCord + 1]
+      const bottom = board[xCord + 1] && board[xCord + 1][yCord]
+      const left = board[xCord] && board[xCord][yCord - 1]
+
+      if (top) {
+        aggregateScore += top.score
+      }
+      if (right ) {
+        aggregateScore += right.score
+      }
+      if (bottom) {
+        aggregateScore += bottom.score
+      }
+      if (left) {
+        aggregateScore += left.score
+      }
+
+      square.aggregateScore = aggregateScore
     })
   })
 }
