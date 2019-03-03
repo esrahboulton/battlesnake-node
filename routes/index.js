@@ -84,61 +84,67 @@ router.post('/move', async function(req, res) {
         dim
       )
     }
+    if(move != null){
+      var data = {
+        move: move, // one of: ['up','down','left','right']
+      }
+      return res.json(data)
+    }
 
-    // if (OneVsOne) {
-    //   // 1v1 time. We are king snek, actively kill the other snek
-    //   var enemyName = snakes[1 - index].name
-    //   var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
-    //   move = pathHelper.pick(path, moveOptions, options)
-    // } else if (nearestFood != false && needsFood) {
-    // // } else if (needsFood) {
-    //   var path = pathHelper.findPath(snakeHead, nearestFood)
-    //   move = pathHelper.pick(path, moveOptions, options)
-    // } else if (!(killMove === 'no kill')) {
-    //   move = killMove
-    // } else {
-    //   //follow tail
-    //   var myLength = jsonHelper.getBody(req)
-    //   var tail = req.you.body[myLength - 1]
-    //   var path = pathHelper.findPath(snakeHead, tail)
-    //   if(path.length == 0 ){
-    //     var index = Math.floor((Math.random() * 4))
-    //     move = options[index]
-    //   } else {
-    //     move = pathHelper.pick(path, moveOptions, options)
-    //   }
-    // }
+    if (OneVsOne) {
+      // 1v1 time. We are king snek, actively kill the other snek
+      var enemyName = snakes[1 - index].name
+      var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
+      move = pathHelper.pick(path, moveOptions, options)
+    } else if (nearestFood != false && needsFood) {
+    // } else if (needsFood) {
+      var path = pathHelper.findPath(snakeHead, nearestFood)
+      move = pathHelper.pick(path, moveOptions, options)
+    } else if (!(killMove === 'no kill')) {
+      move = killMove
+    } else {
+      //follow tail
+      var myLength = jsonHelper.getBody(req)
+      var tail = req.you.body[myLength - 1]
+      var path = pathHelper.findPath(snakeHead, tail)
+      if(path.length == 0 ){
+        var index = Math.floor((Math.random() * 4))
+        move = options[index]
+      } else {
+        move = pathHelper.pick(path, moveOptions, options)
+      }
+    }
 
-    // //Check if move is invalid
-    // for (i = 0; i < options.length; i++) {
-    //   if (move === options[i] && !moveOptions[i]) {
-    //     move = options[moveIndex]
-    //   }
-    // }
+    //Check if move is invalid
+    for (i = 0; i < options.length; i++) {
+      if (move === options[i] && !moveOptions[i]) {
+        move = options[moveIndex]
+      }
+    }
 
-    // /// TODO: add avoid, need to not do our current move if another move exists
-    // var avoid = avoidHelper.avoid(req, snakeHead)
-    // if (!(avoid[0] === 'all good')) {
-    //   //Avoid something
-    //   if (avoid.length == 1) {
-    //     if (move == options[avoid[0]]) {
-    //       for (i = 0; i < options.length; i++) {
-    //         if (i != avoid[0] && moveOptions[i]) {
-    //           move = options[i];
-    //         }
-    //       }
-    //     }
-    //   } else if (avoid.length == 2) {
-    //     if (move == options[avoid[0]] || move == options[avoid[1]]) {
-    //       //change this move if there is another valid move
-    //       for (i = 0; i < options.length; i++) {
-    //         if (i != avoid[0] && i != avoid[1] && moveOptions[i]) {
-    //           move = options[i]
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+    /// TODO: add avoid, need to not do our current move if another move exists
+    var avoid = avoidHelper.avoid(req, snakeHead)
+    if (!(avoid[0] === 'all good')) {
+      //Avoid something
+      if (avoid.length == 1) {
+        if (move == options[avoid[0]]) {
+          for (i = 0; i < options.length; i++) {
+            if (i != avoid[0] && moveOptions[i]) {
+              move = options[i];
+            }
+          }
+        }
+      } else if (avoid.length == 2) {
+        if (move == options[avoid[0]] || move == options[avoid[1]]) {
+          //change this move if there is another valid move
+          for (i = 0; i < options.length; i++) {
+            if (i != avoid[0] && i != avoid[1] && moveOptions[i]) {
+              move = options[i]
+            }
+          }
+        }
+      }
+    }
 
     var data = {
       move: move, // one of: ['up','down','left','right']
