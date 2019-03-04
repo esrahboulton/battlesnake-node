@@ -116,4 +116,21 @@ function simpleBoard(board) {
   });
 }
 
+function getGoal(board, dim){
+  var max = -1
+  var x = -1
+  var y = -1
+  for(i = 0; i < dim; i++){
+    for(j = 0; j < dim; j++){
+      if(board[i][j] > max){
+        max = board[i][j]
+        x = i
+        y = j
+      }
+    }
+  }
+  return {"x" : x, "y" : y}
+}
+
 exports.setupBoard = setupBoard
+exports.getGoal = getGoal
