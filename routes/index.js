@@ -157,7 +157,7 @@ router.post('/move', async function(req, res) {
 
     timeout(() => {
       if (!res.headersSent) {
-        // console.log("fallback..");
+        console.log("fallback..");
         res.json(data).end();
       }
     })
