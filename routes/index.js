@@ -39,7 +39,7 @@ router.post('/move', async function(req, res) {
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
-    // console.log(board)
+    console.log(board)
 
     // ---------------------------------------------
     // VARIABLES
@@ -66,7 +66,7 @@ router.post('/move', async function(req, res) {
     var move;
 
     if (needsFood && nearestFood) {
-      console.log("food")
+      // console.log("food")
       move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
     } else if (OneVsOne) {
       console.log("1v1")

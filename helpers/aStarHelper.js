@@ -50,7 +50,7 @@ function getPath(node, start){
         path.unshift(node.from)
         node = node.from
     }
-    console.log(path)
+    // console.log(path)
     var curr = path[0]
     var nextMove = path[1]
     if(curr.x - nextMove.x == -1){
