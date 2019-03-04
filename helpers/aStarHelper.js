@@ -1,4 +1,7 @@
 function aStar(start, goal, board, height, width){
+    if(board[goal.x][goal.y] == 0){
+        return null
+    }
     var closedSet = []
     var openSet = []
     var s = makeNode(start, goal)
