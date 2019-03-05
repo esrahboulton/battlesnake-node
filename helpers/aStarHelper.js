@@ -34,7 +34,8 @@ function aStar(start, goal, board, height, width){
                 openSet.push(newNode)
             }
 
-            var newGScore = node.g + 1
+            // var newGScore = node.g + 1
+            var newGScore = node.g - board[newNode.x][newNode.y]
             if(newGScore > newNode.g){
                 continue
             }
