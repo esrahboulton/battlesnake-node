@@ -12,19 +12,22 @@
     }
   ],
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "morgan": "^1.9.0"
+    "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "foreman": "^2.0.0",
-    "nodemon": "^1.14.11"
+    "eslint": "^5.15.1",
+    "eslint-config-strongloop": "^2.1.0",
+    "nodemon": "^1.18.9"
   },
   "main": "index.js",
   "engines": {
-    "node": "10.x"
+    "node": ">=8.x"
   },
   "scripts": {
-    "start": "nf start"
+    "start": "cross-env PORT=5000 nodemon index.js",
+    "pretest": "eslint --ignore-path .gitignore ."
   }
 }

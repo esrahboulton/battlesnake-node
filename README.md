@@ -1,88 +1,76 @@
-# ouroboyos nodejs battlesnake
+# starter-snake-node(js)
 
-Based on the SWU nodejs starter snake 🐍
+A simple [Battlesnake AI](https://battlesnake.io) written in Javascript for NodeJS.
 
-## Branches
-`feature/[feature-name]` branches are used for features (new functions, etc). `test/[feature-name]` branches are used for a stable dev build of a feature. We then create a new heroku app so we can run older snakes against newer.
+To get started you'll need a working NodeJS development environment, and at least read the Heroku docs on [deploying a NodeJS app](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
 
-## App
-### Main build
-https://ouroboyos.herokuapp.com/
-### Testing
-https://ouroboyos-random.herokuapp.com/
+If you haven't setup a NodeJS development environment before, read [how to get started with NodeJS](http://nodejs.org/documentation/tutorials/). You'll also need [npm](https://www.npmjs.com/) for easy JS dependency management.
 
-## Running on Docker
-- Run `docker run -it --rm -p 3000:3000 sendwithus/battlesnake-server`
-- Visit http://localhost:3000
+This client uses [Express4](http://expressjs.com/en/4x/api.html) for easy route management, read up on the docs to learn more about reading incoming JSON params, writing responses, etc.
 
-## TODO
-1. implement forward checking to avoid getting trapped
-2. review avoid function
-3. review kill function
-4. implement middle-out strategy
-5. implement space checking to choose the move with more space
-6. implement a check to allow for tail moves (moving into a tail if the snake is not eating)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## CHANGELOG
-## [2.0.0] - 2019-02-27
-### Added
-- `battlesnake-2019` branch!
+## Running the AI locally
 
-## [1.6.0] - 2018-03-10
-### Added
-- taunt variant for 1v1 situations
+Fork and clone this repo:
 
-## [1.5.0] - 2018-03-09
-### Added
-- getID and getIndex in jsonHelper
-- pick function in pathHelper to select a random move in the path
+```shell
+git clone git@github.com:battlesnakeio/starter-snake-node.git
+cd battlesnake-node
+```
 
-### Changed
-- moved find food into foodHelper
-- moved pick move into moveHelper
-- cleaned up routes/index
-- added avoid function
-- cleaned follow tail function
+Install the client dependencies:
 
-### Removed
-- removed onevoneMeHelper.js
-- removed selfHelper.js
+```shell
+npm install
+```
 
-## [1.4.0] - 2018-03-08
-### Changed
-- implemented improved taunt switching 
+Create an `.env` file in the root of the project and add your environment variables (optional).
 
-### Added
-- follow tail option 
+Run the server with auto-reloading on file change:
 
-## [1.3.0] - 2018-03-07
-### Added
-- added 1v1 test to search out the other snakes head
+```shell
+npm start
+```
 
-### Changed
-- updated image w/ a gif
+Test the client in your browser at <http://localhost:5000>
 
-## [1.2.0] - 2018-03-06
-### Added
-- getBody function to jsonHelper
+## Deploying to Heroku
 
-### Changed
-- updated kill function
+Click the Deploy to Heroku button at the top or use the command line commands below.
 
-## [1.1.0] - 2018-03-04
-### Added
-- battlesnake-2018 branch
-	- intact code from Battlesnake 2018
-- develop branch
-	- intended to be used for new work going forward, before being merged into master
-- added json helper 
-- added new helper to separate killOrAvoid into two functions for easier testing
-- added kill function
-- added random movement
+Create a new NodeJS Heroku app:
 
-### Changed
-- updated all helpers w/ code from routes/index
+```shell
+heroku create [APP_NAME]
+```
 
-### Removed
-- removed all functions except pickMove, findFood from routes/index
-- cleaned empty lines, unnecessary comments
+Push code to Heroku servers:
+
+```shell
+git push heroku master
+```
+
+Open Heroku app in browser:
+
+```shell
+heroku open
+```
+
+Or go directly via <http://APP_NAME.herokuapp.com>
+
+View/stream server logs:
+
+```shell
+heroku logs --tail
+```
+
+## Deploying to [Zeit](https://zeit.co/)
+
+Install the now cli and sign up for a [zeit account](https://zeit.co/docs/v1/getting-started/introduction-to-now/).
+
+Deploying is simply:
+
+```shell
+now
+```

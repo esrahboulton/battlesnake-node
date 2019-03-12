@@ -1,149 +1,142 @@
 function aStar(start, goal, board, height, width){
-    if(board[goal.x][goal.y] == 0){
+    // console.log(board)
+    if(board[goal.x][goal.y] === 0){
         return null
     }
-    var closedSet = []
-    var openSet = []
-    var s = makeNode(start, goal)
-    s.g = 0
-    openSet.push(s)
+    var closedSet = new Set()
+    var startIndex = nodeIndex(start)
+    var goalIndex = nodeIndex(goal)
 
-    while(openSet.length > 0){
-        // get lowsest score
-        var nodeIndex = getLowestScore(openSet)
-        var node = openSet[nodeIndex]
+    var openSet = new Set([startIndex])
+
+    var gScore = {}
+    gScore[startIndex] = 0
+
+    var fScore = {}
+
+    var from = {}
+
+    while(openSet.size > 0){
+        if(openSet.size > height * width){
+            console.log("NOOOOOOOOOOO")
+            return null
+        }
+        var current = getLowestScore(openSet, fScore);
         // check if we're done
-        if(isGoal(node, goal)){
-            return getPath(node)
+        if(current === goalIndex){
+            return getPath(from, current, width)
         }
 
         // remove node from open
-        openSet.splice(nodeIndex, 1)
+        openSet.delete(current)
         // add node to closed
-        closedSet.push(node)
+        closedSet.add(current)
 
-        var neighbours = getNeighbours(node, board, height, width)
-        for(j = 0; j < neighbours.length; j++){
-            if(contains(neighbours[j], closedSet)){
+        var neighbours = getNeighbours(getCords(current, width), board, height, width)
+        for(var neighbour of neighbours){
+            if(closedSet.has(neighbour)){
                 continue
             }
-            var newNode = makeNode(neighbours[j], goal)
-            if(contains(neighbours[j], openSet)){
-                newNode = getNode(openSet, neighbours[j])
-            } else {
-                openSet.push(newNode)
-            }
 
-            var newGScore = node.g + 1
+            if(!openSet.has(neighbour)){
+                openSet.add(neighbour)
+            } 
+
+            var newGScore = gScore[current] + 1
             // var newGScore = node.g - board[newNode.x][newNode.y]
-            if(newGScore > newNode.g){
+            if(newGScore >= gScore[neighbour]){
                 continue
             }
-            newNode.from = node
-            newNode.g = newGScore
-            newNode.f = newGScore + getFScore(newNode, goal)
+
+            from[neighbour] = current
+            gScore[neighbour] = newGScore
+            fScore[neighbour] = gScore[neighbour] + getFScore(getCords(neighbour, width), goal)
         }
     }
     return null
 }
 
-function getPath(node, start){
+function nodeIndex(node){
+    return node.x + node.x*node.x
+}
+
+function getCords(index, width){
+    var x = index % width
+    var y = index / width
+    return {"x" : x, "y" : y}
+}
+
+function getPath(from, current, width){
     var path = []
-    path.unshift(node)
-    while(node.from != null){
-        path.unshift(node.from)
-        node = node.from
+    while(current in from){
+        var next = from[current]
+        var dir = getDir(current, next, width)
+        path.unshift(dir)
+        current = next
     }
-    // console.log(path)
-    var curr = path[0]
-    var nextMove = path[1]
-    if(curr.x - nextMove.x == -1){
+    return path[0]
+}
+
+function getDir(current, next, width){
+    var curNode = getCords(current, width)
+    var nextNode = getCords(next, width)
+    if(curNode.x - nextNode.x == -1){
         // console.log("right")
         return 'right'
     }
-    if(curr.x - nextMove.x == +1){
+    if(curNode.x - nextNode.x == +1){
         // console.log("left")
         return 'left'
     }
-    if(curr.y - nextMove.y == -1){
+    if(curNode.y - nextNode.y == -1){
         // console.log("down")
         return 'down'
     }
-    if(curr.y - nextMove.y == +1){
+    if(curNode.y - nextNode.y == +1){
         // console.log("up")
         return 'up'
     }
     return null
 }
 
-function isGoal(node, goal){
-    if(node.x == goal.x && node.y == goal.y){
-        return true
-    }
-    return false
-}
-
 function getNeighbours(node, board, height, width){
     var neighbours = []
     if(node.x + 1 < width && board[node.x + 1][node.y] != 0){
-        neighbours.push({"x" : node.x+1,
-                         "y" : node.y})
+        neighbours.push(nodeIndex({"x" : node.x+1,
+                         "y" : node.y}))                  
     }
     if(node.x - 1 >= 0 && board[node.x - 1][node.y] != 0){
-        neighbours.push({"x" : node.x-1,
-                         "y" : node.y})
+        neighbours.push(nodeIndex({"x" : node.x-1,
+                         "y" : node.y}))
     }
     if(node.y + 1 < height && board[node.x][node.y + 1] != 0){
-        neighbours.push({"x" : node.x,
-                         "y" : node.y+1})
+        neighbours.push(nodeIndex({"x" : node.x,
+                         "y" : node.y+1}))
     }
     if(node.y - 1 >= 0 && board[node.x][node.y-1] != 0){
-        neighbours.push({"x" : node.x,
-                         "y" : node.y-1})
+        neighbours.push(nodeIndex({"x" : node.x,
+                         "y" : node.y-1}))
     }
     return neighbours
-}
-
-function contains(node, set){
-    for(k = 0; k < set.lenght; k++){
-        if(set[k].x == node.x && set[k].y == node.y){
-            return true
-        }
-    }
-    return false
-}
-
-function getNode(set, node){
-    for(k = 0; k < set.lenght; k++){
-        if(set[k].x == node.x && set[k].y == node.y){
-            return set[k]
-        }
-    }
-    return null
-}
-
-function makeNode(node, goal){
-    return {"x" : node.x,
-            "y" : node.y,
-            "g" : Number.POSITIVE_INFINITY,
-            "f" : getFScore(node, goal),
-            "from" : null}
 }
 
 function getFScore(node, goal){
     return (Math.abs(node.x - goal.x) + Math.abs(node.y - goal.y))
 }
 
-function getLowestScore(openSet){
-    var lowest = Number.POSITIVE_INFINITY
-    var index = -1
-    for(i = 0; i < openSet.length; i++){
-        if(openSet[i].f < lowest){
-            lowest = openSet[i].f
-            index = i
+function getLowestScore(openSet, fScore){
+    var lowest = null
+    var ind = null
+    openSet.forEach((index) => {
+        var score = fScore[index]
+        if(score !== undefined && score !== null){
+            if(lowest === null || score < lowest){
+                lowest = score
+                ind = index
+            }
         }
-    }
-    return index
+    })
+    return ind
 }
 
 exports.aStar = aStar
