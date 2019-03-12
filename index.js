@@ -61,24 +61,24 @@ app.post('/move', async (request, response) => {
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
-    // let nearestFood;
-    // let needsFood;
+    let nearestFood;
+    let needsFood;
     // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
     // // let killMove = killHelper.kill(req, snakeHead)
 
-    // if(req.board.food.length != 0){
-    //   nearestFood = foodHelper.findFood(req)
-    // } else {
-    //   nearestFood = false
-    // }
-    // if(nearestFood != false){
-    //   needsFood = foodHelper.needFood(req)
-    //   if(req.you.body.length < req.board.height){
-    //     // needsFood = true
-    //   }
-    // } else {
-    //   needsFood = false
-    // }
+    if(req.board.food.length != 0){
+      nearestFood = foodHelper.findFood(req)
+    } else {
+      nearestFood = false
+    }
+    if(nearestFood != false){
+      needsFood = foodHelper.needFood(req)
+      if(req.you.body.length < req.board.height){
+        // needsFood = true
+      }
+    } else {
+      needsFood = false
+    }
     var move;
     
 
