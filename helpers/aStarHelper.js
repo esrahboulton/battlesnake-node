@@ -1,4 +1,4 @@
-function aStar(start, goal, board, height, width){
+function aStar(start, goal, board, height, width, log){
     // console.log(board)
     if(board[goal.x][goal.y] === 0){
         return null
@@ -24,7 +24,7 @@ function aStar(start, goal, board, height, width){
         var current = getLowestScore(openSet, fScore);
         // check if we're done
         if(current === goalIndex){
-            return getPath(from, current, width)
+            return getPath(from, current, width, log)
         }
 
         // remove node from open
@@ -66,13 +66,16 @@ function getCords(index, width){
     return {"x" : x, "y" : y}
 }
 
-function getPath(from, current, width){
+function getPath(from, current, width, log){
     var path = []
     while(current in from){
         var next = from[current]
         var dir = getDir(current, next, width)
         path.unshift(dir)
         current = next
+    }
+    if(log){
+        console.log(path)
     }
     return path[0]
 }
