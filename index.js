@@ -61,57 +61,57 @@ app.post('/move', async (request, response) => {
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
-    let nearestFood;
-    let needsFood;
-    let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
-    // let killMove = killHelper.kill(req, snakeHead)
+    // let nearestFood;
+    // let needsFood;
+    // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
+    // // let killMove = killHelper.kill(req, snakeHead)
 
-    if(req.board.food.length != 0){
-      nearestFood = foodHelper.findFood(req)
-    } else {
-      nearestFood = false
-    }
-    if(nearestFood != false){
-      needsFood = foodHelper.needFood(req)
-      if(req.you.body.length < req.board.height){
-        // needsFood = true
-      }
-    } else {
-      needsFood = false
-    }
+    // if(req.board.food.length != 0){
+    //   nearestFood = foodHelper.findFood(req)
+    // } else {
+    //   nearestFood = false
+    // }
+    // if(nearestFood != false){
+    //   needsFood = foodHelper.needFood(req)
+    //   if(req.you.body.length < req.board.height){
+    //     // needsFood = true
+    //   }
+    // } else {
+    //   needsFood = false
+    // }
     var move;
     
 
-    if (needsFood && nearestFood) {
-      // console.log("food")
-      move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
-    } else if (OneVsOne) {
-      // console.log("1v1")
-      // console.log(snakes[1 - index].body[0])
-      move = aStarHelper.aStar(
-        snakeHead,
-        snakes[1 - index].body[0],
-        board,
-        dim,
-        dim
-      )
-    } else {
-      // console.log("tail")
-      // console.log(req.you.body[req.you.body.length - 1])
-      move = aStarHelper.aStar(
-        snakeHead,
-        req.you.body[req.you.body.length - 1],
-        board,
-        dim,
-        dim
-      )
-    }
-    if(move != null){
-      var data = {
-        move: move, // one of: ['up','down','left','right']
-      }
-      return response.json(data)
-    }
+    // if (needsFood && nearestFood) {
+    //   // console.log("food")
+    //   move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
+    // } else if (OneVsOne) {
+    //   // console.log("1v1")
+    //   // console.log(snakes[1 - index].body[0])
+    //   move = aStarHelper.aStar(
+    //     snakeHead,
+    //     snakes[1 - index].body[0],
+    //     board,
+    //     dim,
+    //     dim
+    //   )
+    // } else {
+    //   // console.log("tail")
+    //   // console.log(req.you.body[req.you.body.length - 1])
+    //   move = aStarHelper.aStar(
+    //     snakeHead,
+    //     req.you.body[req.you.body.length - 1],
+    //     board,
+    //     dim,
+    //     dim
+    //   )
+    // }
+    // if(move != null){
+    //   var data = {
+    //     move: move, // one of: ['up','down','left','right']
+    //   }
+    //   return response.json(data)
+    // }
     let legalMoves = []
     if(snakeHead.x + 1 < dim && board[snakeHead.x + 1][snakeHead.y] !== 0){
       legalMoves.push('right')
