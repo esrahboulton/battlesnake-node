@@ -58,6 +58,7 @@ app.post('/move', async (request, response) => {
     // var moveIndex = moveHelper.pickMove(req, moveOptions)
     // var options = ['left', 'right', 'up', 'down']
     var snakeHead = snakeHeadHelper.snakeHead(req.you)
+    var tail = req.you.body[req.you.body.length - 1]
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
@@ -89,16 +90,36 @@ app.post('/move', async (request, response) => {
         nearestFood, 
         board, 
         dim, 
-        dim)
-    } else {
-      // console.log("tail")
+        dim,
+        false
+        )
+    }else if(snakeHead.x === tail.x && snakeHead.y === tail.y){
+      let legalMoves = []
+      if(snakeHead.x + 1 < dim && board[snakeHead.x + 1][snakeHead.y] !== 0){
+        legalMoves.push('right')
+      }
+      if(snakeHead.x - 1 >= 0  && board[snakeHead.x - 1][snakeHead.y] !== 0){
+        legalMoves.push('left')
+      }
+      if(snakeHead.y + 1 < dim && board[snakeHead.x][snakeHead.y + 1] !== 0){
+        legalMoves.push('down')
+      }
+      if(snakeHead.y - 1 >= 0 && board[snakeHead.x][snakeHead.y - 1] !== 0){
+        legalMoves.push('up')
+      }
+      if(legalMoves.length !== 0){
+        move = legalMoves[Math.floor(Math.random()*legalMoves.length)]
+      }
+    } else{
+      console.log("tail")
       // console.log(req.you.body[req.you.body.length - 1])
       move = aStarHelper.aStar(
         snakeHead,
-        req.you.body[req.you.body.length - 1],
+        tail,
         board,
         dim,
-        dim
+        dim,
+        true
       )
     }
       // } else if (OneVsOne) {
