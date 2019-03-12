@@ -11,11 +11,11 @@ const {
 
 const snakeHeadHelper = require('./helpers/snakeHead')
 const foodHelper = require('./helpers/foodHelper')
-const pathHelper = require('./helpers/pathHelper')
-const killHelper = require('./helpers/killHelper')
+// const pathHelper = require('./helpers/pathHelper')
+// const killHelper = require('./helpers/killHelper')
 const jsonHelper = require('./helpers/jsonHelper')
-const moveHelper = require('./helpers/moveHelper')
-const avoidHelper = require('./helpers/avoidHelper')
+// const moveHelper = require('./helpers/moveHelper')
+// const avoidHelper = require('./helpers/avoidHelper')
 const boardHeler = require('./helpers/boardHelper')
 const {timeout} = require('./helpers/timeoutHelper')
 const aStarHelper = require('./helpers/aStarHelper')
@@ -48,30 +48,23 @@ app.post('/move', async (request, response) => {
   // NOTE: Do something here to generate your move
   try {
     var req = request.body
-    var index = jsonHelper.getIndex(req)
-    var snakes = jsonHelper.getSnakes(req)
-    var moveOptions = [true, true, true, true]
-    var moveIndex = moveHelper.pickMove(req, moveOptions)
-    var options = ['left', 'right', 'up', 'down']
-    var snakeHead = snakeHeadHelper.snakeHead(req.you)
-
-    var dim = req.board.height
-    var id = jsonHelper.getID(req)
-    var board = await boardHeler.setupBoard(req, dim, id)
-    // console.log(board)
 
     // ---------------------------------------------
     // VARIABLES
     // ---------------------------------------------
+    var index = jsonHelper.getIndex(req)
+    var snakes = jsonHelper.getSnakes(req)
+    // var moveOptions = [true, true, true, true]
+    // var moveIndex = moveHelper.pickMove(req, moveOptions)
+    // var options = ['left', 'right', 'up', 'down']
+    var snakeHead = snakeHeadHelper.snakeHead(req.you)
+    var dim = req.board.height
+    var id = jsonHelper.getID(req)
+    var board = await boardHeler.setupBoard(req, dim, id)
     let nearestFood;
     let needsFood;
     let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
-    let killMove = killHelper.kill(req, snakeHead)
-
-    // let goal = boardHeler.getGoal(board, dim)
-    // console.log('goal')
-    // console.log(goal)
-    // var move = aStarHelper.aStar(snakeHead, goal, board, dim, dim)
+    // let killMove = killHelper.kill(req, snakeHead)
 
     if(req.board.food.length != 0){
       nearestFood = foodHelper.findFood(req)
@@ -119,64 +112,87 @@ app.post('/move', async (request, response) => {
       }
       return response.json(data)
     }
-
-    if (OneVsOne) {
-      // 1v1 time. We are king snek, actively kill the other snek
-      var enemyName = snakes[1 - index].name
-      var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
-      move = pathHelper.pick(path, moveOptions, options)
-    } else if (nearestFood != false && needsFood) {
-    // } else if (needsFood) {
-      var path = pathHelper.findPath(snakeHead, nearestFood)
-      move = pathHelper.pick(path, moveOptions, options)
-    } else if (!(killMove === 'no kill')) {
-      move = killMove
-    } else {
-      //follow tail
-      var myLength = jsonHelper.getBody(req)
-      var tail = req.you.body[myLength - 1]
-      var path = pathHelper.findPath(snakeHead, tail)
-      if(path.length == 0 ){
-        var index = Math.floor((Math.random() * 4))
-        move = options[index]
-      } else {
-        move = pathHelper.pick(path, moveOptions, options)
-      }
+    let legalMoves = []
+    if(board[snakeHead.x + 1][snakeHead.y] !== 0){
+      legalMoves.push('right')
+    }
+    if(board[snakeHead.x - 1][snakeHead.y] !== 0){
+      legalMoves.push('left')
+    }
+    if(board[snakeHead.x][snakeHead.y + 1] !== 0){
+      legalMoves.push('down')
+    }
+    if(board[snakeHead.x][snakeHead.y - 1] !== 0){
+      legalMoves.push('up')
+    }
+    if(legalMoves.length !== 0){
+      move = legalMoves[Math.floor(Math.random()*legalMoves.length)]
     }
 
-    //Check if move is invalid
-    for (i = 0; i < options.length; i++) {
-      if (move === options[i] && !moveOptions[i]) {
-        move = options[moveIndex]
+    if(move !== null){
+      var data = {
+        move: move, // one of: ['up','down','left','right']
       }
+      return response.json(data)
     }
 
-    /// TODO: add avoid, need to not do our current move if another move exists
-    var avoid = avoidHelper.avoid(req, snakeHead)
-    if (!(avoid[0] === 'all good')) {
-      //Avoid something
-      if (avoid.length == 1) {
-        if (move == options[avoid[0]]) {
-          for (i = 0; i < options.length; i++) {
-            if (i != avoid[0] && moveOptions[i]) {
-              move = options[i];
-            }
-          }
-        }
-      } else if (avoid.length == 2) {
-        if (move == options[avoid[0]] || move == options[avoid[1]]) {
-          //change this move if there is another valid move
-          for (i = 0; i < options.length; i++) {
-            if (i != avoid[0] && i != avoid[1] && moveOptions[i]) {
-              move = options[i]
-            }
-          }
-        }
-      }
-    }
+    // if (OneVsOne) {
+    //   // 1v1 time. We are king snek, actively kill the other snek
+    //   var enemyName = snakes[1 - index].name
+    //   var path = pathHelper.findPath(snakeHead, snakes[1 - index].body[0])
+    //   move = pathHelper.pick(path, moveOptions, options)
+    // } else if (nearestFood != false && needsFood) {
+    // // } else if (needsFood) {
+    //   var path = pathHelper.findPath(snakeHead, nearestFood)
+    //   move = pathHelper.pick(path, moveOptions, options)
+    // } else if (!(killMove === 'no kill')) {
+    //   move = killMove
+    // } else {
+    //   //follow tail
+    //   var myLength = jsonHelper.getBody(req)
+    //   var tail = req.you.body[myLength - 1]
+    //   var path = pathHelper.findPath(snakeHead, tail)
+    //   if(path.length == 0 ){
+    //     var index = Math.floor((Math.random() * 4))
+    //     move = options[index]
+    //   } else {
+    //     move = pathHelper.pick(path, moveOptions, options)
+    //   }
+    // }
+
+    // //Check if move is invalid
+    // for (i = 0; i < options.length; i++) {
+    //   if (move === options[i] && !moveOptions[i]) {
+    //     move = options[moveIndex]
+    //   }
+    // }
+
+    // /// TODO: add avoid, need to not do our current move if another move exists
+    // var avoid = avoidHelper.avoid(req, snakeHead)
+    // if (!(avoid[0] === 'all good')) {
+    //   //Avoid something
+    //   if (avoid.length == 1) {
+    //     if (move == options[avoid[0]]) {
+    //       for (i = 0; i < options.length; i++) {
+    //         if (i != avoid[0] && moveOptions[i]) {
+    //           move = options[i];
+    //         }
+    //       }
+    //     }
+    //   } else if (avoid.length == 2) {
+    //     if (move == options[avoid[0]] || move == options[avoid[1]]) {
+    //       //change this move if there is another valid move
+    //       for (i = 0; i < options.length; i++) {
+    //         if (i != avoid[0] && i != avoid[1] && moveOptions[i]) {
+    //           move = options[i]
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     var data = {
-      move: move, // one of: ['up','down','left','right']
+      move: 'left', // one of: ['up','down','left','right']
     }
 
     timeout(() => {
