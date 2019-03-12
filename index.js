@@ -113,13 +113,13 @@ app.post('/move', async (request, response) => {
       return response.json(data)
     }
     let legalMoves = []
-    if(snakeHead.x + 1 < width && board[snakeHead.x + 1][snakeHead.y] !== 0){
+    if(snakeHead.x + 1 < dim && board[snakeHead.x + 1][snakeHead.y] !== 0){
       legalMoves.push('right')
     }
     if(snakeHead.x - 1 >= 0  && board[snakeHead.x - 1][snakeHead.y] !== 0){
       legalMoves.push('left')
     }
-    if(snakeHead.y + 1 < height && board[snakeHead.x][snakeHead.y + 1] !== 0){
+    if(snakeHead.y + 1 < dim && board[snakeHead.x][snakeHead.y + 1] !== 0){
       legalMoves.push('down')
     }
     if(snakeHead.y - 1 >= 0 && board[snakeHead.x][snakeHead.y - 1] !== 0){
