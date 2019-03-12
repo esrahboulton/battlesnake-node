@@ -83,7 +83,7 @@ app.post('/move', async (request, response) => {
     
 
     if (needsFood && nearestFood) {
-      // console.log("food")
+      console.log("food")
       move = aStarHelper.aStar(snakeHead, nearestFood, board, dim, dim)
     }
       // } else if (OneVsOne) {
