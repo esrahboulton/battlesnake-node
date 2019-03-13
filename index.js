@@ -66,7 +66,7 @@ app.post('/move', async (request, response) => {
     let nearestFood;
     let needsFood;
 
-    // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
+    let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
     // // let killMove = killHelper.kill(req, snakeHead)
 
     if(req.board.food.length != 0){
@@ -94,29 +94,29 @@ app.post('/move', async (request, response) => {
         dim, 
         dim
         )
-    } else{
-      console.log("tail")
-      // console.log(board)
-      // console.log(req.you.body[req.you.body.length - 1])
-      move = aStarHelper.aStar(
-        snakeHead,
-        tail,
-        board,
-        dim,
-        dim
-      )
-    }
-      // } else if (OneVsOne) {
-    //   // console.log("1v1")
-    //   // console.log(snakes[1 - index].body[0])
+    // } else{
+    //   console.log("tail")
+    //   // console.log(board)
+    //   // console.log(req.you.body[req.you.body.length - 1])
     //   move = aStarHelper.aStar(
     //     snakeHead,
-    //     snakes[1 - index].body[0],
+    //     tail,
     //     board,
     //     dim,
     //     dim
     //   )
-    // } else {
+    // }
+      } else if (OneVsOne) {
+      console.log("1v1")
+      // console.log(snakes[1 - index].body[0])
+      move = aStarHelper.aStar(
+        snakeHead,
+        snakes[1 - index].body[0],
+        board,
+        dim,
+        dim
+      )
+    } // else {
     //   // console.log("tail")
     //   // console.log(req.you.body[req.you.body.length - 1])
     //   move = aStarHelper.aStar(
@@ -146,9 +146,10 @@ app.post('/move', async (request, response) => {
     if(snakeHead.y - 1 >= 0 && board[snakeHead.x][snakeHead.y - 1] !== 0){
       legalMoves.push('up')
     }
-    if(legalMoves.length !== 0 && move === null){
+    if(legalMoves.length !== 0 && !move){
       move = legalMoves[Math.floor(Math.random()*legalMoves.length)]
     }
+    console.log(move)
 
     if(move !== null){
       var data = {
