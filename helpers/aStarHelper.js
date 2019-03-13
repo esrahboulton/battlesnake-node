@@ -22,7 +22,8 @@ function aStar(start, goal, board, height, width){
             console.log("NOOOOOOOOOOO")
             return null
         }
-        var current = getLowestScore(openSet, fScore);
+        // var current = getLowestScore(openSet, fScore);
+        var current = getHighestScore(openSet, fScore);
         // console.log(current)
         // check if we're done
         if(current === goalIndex){
