@@ -1,30 +1,32 @@
-function aStar(start, goal, board, height, width, log){
-    // console.log(board)
+function aStar(start, goal, board, height, width){
     if(board[goal.x][goal.y] === 0){
         return null
     }
     var closedSet = new Set()
-    var startIndex = nodeIndex(start)
-    var goalIndex = nodeIndex(goal)
+    var startIndex = nodeIndex(start, width)
+    var goalIndex = nodeIndex(goal, width)
 
     var openSet = new Set([startIndex])
-
     var gScore = {}
     gScore[startIndex] = 0
 
     var fScore = {}
 
+    fScore[startIndex] = getFScore(start, goal)
+
     var from = {}
 
+    console.log("Open set pre loop:",openSet)
     while(openSet.size > 0){
         if(openSet.size > height * width){
             console.log("NOOOOOOOOOOO")
             return null
         }
         var current = getLowestScore(openSet, fScore);
+        // console.log(current)
         // check if we're done
         if(current === goalIndex){
-            return getPath(from, current, width, log)
+            return getPath(from, current, width)
         }
 
         // remove node from open
@@ -32,8 +34,11 @@ function aStar(start, goal, board, height, width, log){
         // add node to closed
         closedSet.add(current)
 
+        var currentNode = getCords(current, width)
+        // console.log("node:", currentNode)
         var neighbours = getNeighbours(getCords(current, width), board, height, width)
         for(var neighbour of neighbours){
+            // console.log("Neighbour:", getCords(neighbour, width))
             if(closedSet.has(neighbour)){
                 continue
             }
@@ -43,7 +48,6 @@ function aStar(start, goal, board, height, width, log){
             } 
 
             var newGScore = gScore[current] + 1
-            // var newGScore = node.g - board[newNode.x][newNode.y]
             if(newGScore >= gScore[neighbour]){
                 continue
             }
@@ -52,31 +56,33 @@ function aStar(start, goal, board, height, width, log){
             gScore[neighbour] = newGScore
             fScore[neighbour] = gScore[neighbour] + getFScore(getCords(neighbour, width), goal)
         }
+        console.log("Open set:",openSet)
     }
+    console.log("No Path Found")
     return null
 }
 
-function nodeIndex(node){
-    return node.x + node.x*node.x
+function nodeIndex(node, dim){
+    console.log("Node index call x", node.x, " y", node.y)
+    return node.x + (node.y*dim)
 }
 
 function getCords(index, width){
     var x = index % width
-    var y = index / width
+    var y = Math.floor(index / width)
     return {"x" : x, "y" : y}
 }
 
-function getPath(from, current, width, log){
+function getPath(from, current, width){
     var path = []
     while(current in from){
         var next = from[current]
         var dir = getDir(current, next, width)
+        // console.log(next)
         path.unshift(dir)
         current = next
     }
-    if(log){
-        console.log(path)
-    }
+    console.log(path)
     return path[0]
 }
 
@@ -104,21 +110,27 @@ function getDir(current, next, width){
 
 function getNeighbours(node, board, height, width){
     var neighbours = []
-    if(node.x + 1 < width && board[node.x + 1][node.y] != 0){
-        neighbours.push(nodeIndex({"x" : node.x+1,
-                         "y" : node.y}))                  
+    console.log("x", node.x, " y",node.y)
+    var neighbourIndex;
+    if(node.x + 1 < width && board[node.x + 1][node.y] !== 0){
+        neighbourIndex = node.x+1 + (node.y*width)
+        // console.log("x + 1", neighbourIndex)
+        neighbours.push(neighbourIndex)                  
     }
-    if(node.x - 1 >= 0 && board[node.x - 1][node.y] != 0){
-        neighbours.push(nodeIndex({"x" : node.x-1,
-                         "y" : node.y}))
+    if(node.x - 1 >= 0 && board[node.x - 1][node.y] !== 0){
+        neighbourIndex = node.x-1 + (node.y*width)
+        // console.log("x - 1", neighbourIndex)
+        neighbours.push(neighbourIndex)    
     }
-    if(node.y + 1 < height && board[node.x][node.y + 1] != 0){
-        neighbours.push(nodeIndex({"x" : node.x,
-                         "y" : node.y+1}))
+    if(node.y + 1 < height && board[node.x][node.y + 1] !== 0){
+        neighbourIndex = node.x + (node.y+1)*width
+        // console.log("y + 1", neighbourIndex)
+        neighbours.push(neighbourIndex)    
     }
-    if(node.y - 1 >= 0 && board[node.x][node.y-1] != 0){
-        neighbours.push(nodeIndex({"x" : node.x,
-                         "y" : node.y-1}))
+    if(node.y - 1 >= 0 && board[node.x][node.y-1] !== 0){
+        neighbourIndex = node.x + (node.y-1)*width
+        // console.log("y - 1", neighbourIndex)
+        neighbours.push(neighbourIndex)    
     }
     return neighbours
 }

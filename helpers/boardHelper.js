@@ -132,5 +132,27 @@ function getGoal(board, dim){
   return {"x" : x, "y" : y}
 }
 
+function getBoard(req, dim, id){
+  var gameBoard = Array(dim).fill().map(() => Array(dim).fill(1))
+  var snakes = req.board.snakes
+  for (i = 0; i < snakes.length; i++) {
+      var snek = snakes[i].body;
+      var len = snek.length-1
+      for (j = 0; j < len; j++) {
+        var x = snek[j].x
+        var y = snek[j].y
+        gameBoard[x][y] = 0
+      }
+    }
+  return transpose(gameBoard)
+  // return gameBoard
+}
+
+function transpose(a) {
+  return Object.keys(a[0]).map(function(c) {
+      return a.map(function(r) { return r[c]; });
+  });
+}
+
 exports.setupBoard = setupBoard
-exports.getGoal = getGoal
+exports.getBoard = getBoard

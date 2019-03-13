@@ -64,6 +64,9 @@ app.post('/move', async (request, response) => {
     var board = await boardHeler.setupBoard(req, dim, id)
     let nearestFood;
     let needsFood;
+
+    let oldBoard = boardHeler.getBoard(req, dim, id)
+    console.log(oldBoard)
     // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
     // // let killMove = killHelper.kill(req, snakeHead)
 
@@ -82,44 +85,26 @@ app.post('/move', async (request, response) => {
     }
     var move;
     
-
+    needsFood = true
     if (needsFood && nearestFood) {
       console.log("food")
       move = aStarHelper.aStar(
         snakeHead, 
         nearestFood, 
-        board, 
+        oldBoard, 
         dim, 
-        dim,
-        false
+        dim
         )
-    }else if(snakeHead.x === tail.x && snakeHead.y === tail.y){
-      let legalMoves = []
-      if(snakeHead.x + 1 < dim && board[snakeHead.x + 1][snakeHead.y] !== 0){
-        legalMoves.push('right')
-      }
-      if(snakeHead.x - 1 >= 0  && board[snakeHead.x - 1][snakeHead.y] !== 0){
-        legalMoves.push('left')
-      }
-      if(snakeHead.y + 1 < dim && board[snakeHead.x][snakeHead.y + 1] !== 0){
-        legalMoves.push('down')
-      }
-      if(snakeHead.y - 1 >= 0 && board[snakeHead.x][snakeHead.y - 1] !== 0){
-        legalMoves.push('up')
-      }
-      if(legalMoves.length !== 0){
-        move = legalMoves[Math.floor(Math.random()*legalMoves.length)]
-      }
     } else{
       console.log("tail")
+      // console.log(board)
       // console.log(req.you.body[req.you.body.length - 1])
       move = aStarHelper.aStar(
         snakeHead,
         tail,
-        board,
+        oldBoard,
         dim,
-        dim,
-        true
+        dim
       )
     }
       // } else if (OneVsOne) {
