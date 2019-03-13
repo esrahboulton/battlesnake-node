@@ -48,7 +48,8 @@ function aStar(start, goal, board, height, width){
             } 
 
             var newGScore = gScore[current] + board[currentNode.x][currentNode.y]
-            if(newGScore >= gScore[neighbour]){
+            // if(newGScore >= gScore[neighbour]){
+            if(newGScore <= gScore[neighbour]){
                 continue
             }
 
@@ -147,6 +148,21 @@ function getLowestScore(openSet, fScore){
         if(score !== undefined && score !== null){
             if(lowest === null || score < lowest){
                 lowest = score
+                ind = index
+            }
+        }
+    })
+    return ind
+}
+
+function getHighestScore(openSet, fScore){
+    var highest = null
+    var ind = null
+    openSet.forEach((index) => {
+        var score = fScore[index]
+        if(score !== undefined && score !== null){
+            if(highest === null || score > lowest){
+                highest = score
                 ind = index
             }
         }

@@ -9,18 +9,18 @@ async function setupBoard(req, dim, id){
       return {
        contents: EMPTY,
        score: 0,
-       aggregateScore: 1 // change back to 0 eventually
+       aggregateScore: 0 // change back to 0 eventually
       };
     })
   )
 
   await Promise.all([
     addSnakes(gameBoard, req.board.snakes),
-    // addFood(gameBoard, req.board.food)
+    addFood(gameBoard, req.board.food)
   ]);
 
-  // addScore(gameBoard)
-  // refineScore(gameBoard)
+  addScore(gameBoard)
+  refineScore(gameBoard)
   return simpleBoard(gameBoard);
 }
 
@@ -35,20 +35,6 @@ async function addSnakes(board, snakes) {
   snakes.forEach((snake) => {
     // this removes the last piece of the snake, then
     let lastBody = { x: null, y: null};
-    let firstBody = snake.body[0]
-    if(firstBody.x+1 < board.length){
-      board[firstBody.x+1][firstBody.y].aggregateScore = 1000
-    }
-    if(firstBody.x-1 >= 0){
-      board[firstBody.x-1][firstBody.y].aggregateScore = 1000
-    }
-    if(firstBody.y+1 < board.length){
-      board[firstBody.x][firstBody.y+1].aggregateScore = 1000
-    }
-    if(firstBody.y-1 >= 0){
-      board[firstBody.x][firstBody.y-1].aggregateScore = 1000
-    }
-
     snake.body.slice(0, snake.body.length - 1).forEach((bodyDims, i) => {
       if( bodyDims.x === lastBody.x && bodyDims.y === lastBody.y) {
         return;
