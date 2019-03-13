@@ -22,8 +22,8 @@ function aStar(start, goal, board, height, width){
             console.log("NOOOOOOOOOOO")
             return null
         }
-        // var current = getLowestScore(openSet, fScore);
-        var current = getHighestScore(openSet, fScore);
+        var current = getLowestScore(openSet, fScore);
+        // var current = getHighestScore(openSet, fScore);
         // console.log(current)
         // check if we're done
         if(current === goalIndex){
@@ -49,8 +49,8 @@ function aStar(start, goal, board, height, width){
             } 
 
             var newGScore = gScore[current] + board[currentNode.x][currentNode.y]
-            // if(newGScore >= gScore[neighbour]){
-            if(newGScore <= gScore[neighbour]){
+            if(newGScore >= gScore[neighbour]){
+            // if(newGScore <= gScore[neighbour]){
                 continue
             }
 
