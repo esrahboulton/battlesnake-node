@@ -84,7 +84,7 @@ app.post('/move', async (request, response) => {
     }
     var move;
     
-    needsFood = true
+    // needsFood = true
     if (needsFood && nearestFood) {
       console.log("food")
       move = aStarHelper.aStar(
