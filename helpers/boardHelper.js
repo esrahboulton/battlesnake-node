@@ -9,18 +9,18 @@ async function setupBoard(req, dim, id){
       return {
        contents: EMPTY,
        score: 0,
-       aggregateScore: 0
+       aggregateScore: 1 // change back to 0 eventually
       };
     })
   )
 
   await Promise.all([
     addSnakes(gameBoard, req.board.snakes),
-    addFood(gameBoard, req.board.food)
+    // addFood(gameBoard, req.board.food)
   ]);
 
-  addScore(gameBoard)
-  refineScore(gameBoard)
+  // addScore(gameBoard)
+  // refineScore(gameBoard)
   return simpleBoard(gameBoard);
 }
 
@@ -35,6 +35,20 @@ async function addSnakes(board, snakes) {
   snakes.forEach((snake) => {
     // this removes the last piece of the snake, then
     let lastBody = { x: null, y: null};
+    let firstBody = snake.body[0]
+    if(firstBody.x+1 < board.length){
+      board[firstBody.x+1][firstBody.y].aggregateScore = 1000
+    }
+    if(firstBody.x-1 >= 0){
+      board[firstBody.x-1][firstBody.y].aggregateScore = 1000
+    }
+    if(firstBody.y+1 < board.length){
+      board[firstBody.x][firstBody.y+1].aggregateScore = 1000
+    }
+    if(firstBody.y-1 >= 0){
+      board[firstBody.x][firstBody.y-1].aggregateScore = 1000
+    }
+
     snake.body.slice(0, snake.body.length - 1).forEach((bodyDims, i) => {
       if( bodyDims.x === lastBody.x && bodyDims.y === lastBody.y) {
         return;
@@ -116,43 +130,4 @@ function simpleBoard(board) {
   });
 }
 
-function getGoal(board, dim){
-  var max = -1
-  var x = -1
-  var y = -1
-  for(i = 0; i < dim; i++){
-    for(j = 0; j < dim; j++){
-      if(board[i][j] > max){
-        max = board[i][j]
-        x = i
-        y = j
-      }
-    }
-  }
-  return {"x" : x, "y" : y}
-}
-
-function getBoard(req, dim, id){
-  var gameBoard = Array(dim).fill().map(() => Array(dim).fill(1))
-  var snakes = req.board.snakes
-  for (i = 0; i < snakes.length; i++) {
-      var snek = snakes[i].body;
-      var len = snek.length-1
-      for (j = 0; j < len; j++) {
-        var x = snek[j].x
-        var y = snek[j].y
-        gameBoard[x][y] = 0
-      }
-    }
-  return transpose(gameBoard)
-  // return gameBoard
-}
-
-function transpose(a) {
-  return Object.keys(a[0]).map(function(c) {
-      return a.map(function(r) { return r[c]; });
-  });
-}
-
 exports.setupBoard = setupBoard
-exports.getBoard = getBoard

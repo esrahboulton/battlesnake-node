@@ -62,11 +62,10 @@ app.post('/move', async (request, response) => {
     var dim = req.board.height
     var id = jsonHelper.getID(req)
     var board = await boardHeler.setupBoard(req, dim, id)
+    console.log(board)
     let nearestFood;
     let needsFood;
 
-    let oldBoard = boardHeler.getBoard(req, dim, id)
-    // console.log(oldBoard)
     // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
     // // let killMove = killHelper.kill(req, snakeHead)
 

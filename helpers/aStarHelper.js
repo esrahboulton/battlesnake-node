@@ -36,7 +36,7 @@ function aStar(start, goal, board, height, width){
 
         var currentNode = getCords(current, width)
         // console.log("node:", currentNode)
-        var neighbours = getNeighbours(getCords(current, width), board, height, width)
+        var neighbours = getNeighbours(currentNode, board, height, width)
         for(var neighbour of neighbours){
             // console.log("Neighbour:", getCords(neighbour, width))
             if(closedSet.has(neighbour)){
@@ -47,7 +47,7 @@ function aStar(start, goal, board, height, width){
                 openSet.add(neighbour)
             } 
 
-            var newGScore = gScore[current] + 1
+            var newGScore = gScore[current] + board[currentNode.x][currentNode.y]
             if(newGScore >= gScore[neighbour]){
                 continue
             }
