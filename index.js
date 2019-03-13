@@ -146,7 +146,7 @@ app.post('/move', async (request, response) => {
     if(snakeHead.y - 1 >= 0 && board[snakeHead.x][snakeHead.y - 1] !== 0){
       legalMoves.push('up')
     }
-    if(legalMoves.length !== 0){
+    if(legalMoves.length !== 0 && move === null){
       move = legalMoves[Math.floor(Math.random()*legalMoves.length)]
     }
 
