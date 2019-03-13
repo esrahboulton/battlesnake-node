@@ -91,7 +91,7 @@ app.post('/move', async (request, response) => {
       move = aStarHelper.aStar(
         snakeHead, 
         nearestFood, 
-        oldBoard, 
+        board, 
         dim, 
         dim
         )
@@ -102,12 +102,11 @@ app.post('/move', async (request, response) => {
       move = aStarHelper.aStar(
         snakeHead,
         tail,
-        oldBoard,
+        board,
         dim,
         dim
       )
     }
-    
       // } else if (OneVsOne) {
     //   // console.log("1v1")
     //   // console.log(snakes[1 - index].body[0])
