@@ -107,12 +107,7 @@ app.post('/move', async (request, response) => {
         dim
       )
     }
-    if(move !== null){
-      var data = {
-        move: move, // one of: ['up','down','left','right']
-      }
-      return response.json(data)
-    }
+    
       // } else if (OneVsOne) {
     //   // console.log("1v1")
     //   // console.log(snakes[1 - index].body[0])
