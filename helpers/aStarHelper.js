@@ -162,7 +162,7 @@ function getHighestScore(openSet, fScore){
     openSet.forEach((index) => {
         var score = fScore[index]
         if(score !== undefined && score !== null){
-            if(highest === null || score > lowest){
+            if(highest === null || score > highest){
                 highest = score
                 ind = index
             }
