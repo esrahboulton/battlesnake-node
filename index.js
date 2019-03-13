@@ -66,7 +66,7 @@ app.post('/move', async (request, response) => {
     let needsFood;
 
     let oldBoard = boardHeler.getBoard(req, dim, id)
-    console.log(oldBoard)
+    // console.log(oldBoard)
     // let OneVsOne = snakes.length == 2 && snakes[1 - index].body.length < jsonHelper.getBody(req);
     // // let killMove = killHelper.kill(req, snakeHead)
 
@@ -106,6 +106,12 @@ app.post('/move', async (request, response) => {
         dim,
         dim
       )
+    }
+    if(move !== null){
+      var data = {
+        move: move, // one of: ['up','down','left','right']
+      }
+      return response.json(data)
     }
       // } else if (OneVsOne) {
     //   // console.log("1v1")

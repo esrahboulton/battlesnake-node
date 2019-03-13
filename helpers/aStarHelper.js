@@ -16,7 +16,7 @@ function aStar(start, goal, board, height, width){
 
     var from = {}
 
-    console.log("Open set pre loop:",openSet)
+    // console.log("Open set pre loop:",openSet)
     while(openSet.size > 0){
         if(openSet.size > height * width){
             console.log("NOOOOOOOOOOO")
@@ -56,14 +56,14 @@ function aStar(start, goal, board, height, width){
             gScore[neighbour] = newGScore
             fScore[neighbour] = gScore[neighbour] + getFScore(getCords(neighbour, width), goal)
         }
-        console.log("Open set:",openSet)
+        // console.log("Open set:",openSet)
     }
     console.log("No Path Found")
     return null
 }
 
 function nodeIndex(node, dim){
-    console.log("Node index call x", node.x, " y", node.y)
+    // console.log("Node index call x", node.x, " y", node.y)
     return node.x + (node.y*dim)
 }
 
@@ -82,7 +82,7 @@ function getPath(from, current, width){
         path.unshift(dir)
         current = next
     }
-    console.log(path)
+    // console.log(path)
     return path[0]
 }
 
@@ -110,7 +110,7 @@ function getDir(current, next, width){
 
 function getNeighbours(node, board, height, width){
     var neighbours = []
-    console.log("x", node.x, " y",node.y)
+    // console.log("x", node.x, " y",node.y)
     var neighbourIndex;
     if(node.x + 1 < width && board[node.x + 1][node.y] !== 0){
         neighbourIndex = node.x+1 + (node.y*width)
